@@ -49,16 +49,61 @@ public class Sort {
         return arr;
     }
 
+    public static int[] insertionSort(int[] arr) {
+
+        int len = arr.length;
+        int prevIndex, current;
+
+        for (int i = 1; i < len; i++) {
+
+        }
+
+        return arr;
+    }
+
+    public static int[] mixArrary(int[] arr) {  // 随机打乱数组
+
+        int len = arr.length;
+        int temp;
+
+        for (int i = 0; i < len; i++) {
+
+            int gap = (len - 1) - (i + 1);
+
+            if (gap <= 0) break;  // 防止越界
+
+            int index = (int)Math.round(
+                    Math.random() * ((len - 1) - (i + 1))
+            ) + (i + 1);  // 生成[i + 1, len - 1]间的随机整数
+
+            temp = arr[i];
+
+            arr[i] = arr[index];
+            arr[index] = temp;
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
         int[] arr = {5, 4, 2, 3, 1, 33, 355, 3, 2, 2, 1, 86, 3858, 8, 866, 123, 45};
 
         System.out.println("original array: " + Arrays.toString(arr));
 
-        // bubbleSort(arr);
-        // System.out.println("bubble sort: " + Arrays.toString(arr));
+        bubbleSort(arr);
+        System.out.println("bubble sort: " + Arrays.toString(arr));
+
+        mixArrary(arr);
+        System.out.println("mixed array: " + Arrays.toString(arr));
 
         selectionSort(arr);
         System.out.println("selection sort: " + Arrays.toString(arr));
+
+        mixArrary(arr);
+        System.out.println("mixed array: " + Arrays.toString(arr));
+
+        insertionSort(arr);
+        System.out.println("insertion sort: " + Arrays.toString(arr));
     }
 }
