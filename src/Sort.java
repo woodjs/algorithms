@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Sort {
 
-    public static int[] bubbleSort(int[] arr) {  // 冒泡排序，先确定最大的数据
+    public static int[] bubbleSort(int[] arr) {  // 冒泡排序，先确定最右侧（最大）的数据
 
         int len = arr.length;
         int temp;
@@ -24,12 +24,12 @@ public class Sort {
         return arr;
     }
 
-    public static int[] selectionSort(int[] arr) {  // 选择排序，先确定最小的数据
+    public static int[] selectionSort(int[] arr) {  // 选择排序，先确定最左侧（最小）的数据
 
         int len = arr.length;
         int minIndex, temp;
 
-        for (int i = 0; i < len - 1; i++) {
+        for (int i = 0; i < len - 1; i++) {  // 1，防止minIndex + 1越界
 
             minIndex = i;
 
