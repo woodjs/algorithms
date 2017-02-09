@@ -5,6 +5,7 @@ public class Sort {
     public static int[] bubbleSort(int[] arr) {  // 冒泡排序，先确定最大的数据
 
         int len = arr.length;
+        int temp;
 
         for (int i = 0; i < len; i++) {
 
@@ -12,7 +13,7 @@ public class Sort {
 
                 if (arr[j] > arr[j + 1]) {
 
-                    int temp = arr[j + 1];
+                    temp = arr[j + 1];
 
                     arr[j + 1] = arr[j];
                     arr[j] = temp;
@@ -23,12 +24,41 @@ public class Sort {
         return arr;
     }
 
+    public static int[] selectionSort(int[] arr) {  // 选择排序，先确定最小的数据
+
+        int len = arr.length;
+        int minIndex, temp;
+
+        for (int i = 0; i < len - 1; i++) {
+
+            minIndex = i;
+
+            for (int j = minIndex + 1; j < len; j++) {
+
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            temp = arr[i];
+
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
-        int[] arr = {5, 4, 2, 3, 1};
+        int[] arr = {5, 4, 2, 3, 1, 33, 355, 3, 2, 2, 1, 86, 3858, 8, 866, 123, 45};
 
-        bubbleSort(arr);
+        System.out.println("original array: " + Arrays.toString(arr));
 
-        System.out.println(Arrays.toString(arr));
+        // bubbleSort(arr);
+        // System.out.println("bubble sort: " + Arrays.toString(arr));
+
+        selectionSort(arr);
+        System.out.println("selection sort: " + Arrays.toString(arr));
     }
 }
