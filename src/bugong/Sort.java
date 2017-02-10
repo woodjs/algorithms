@@ -84,6 +84,38 @@ public class Sort {
         return arr;
     }
 
+    /**
+     * 希尔排序
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] hillSort(int[] arr) {
+
+        int len = arr.length;
+        int gap = 1;
+        int temp;
+
+        while (gap < len / 3) {  // 动态定义间隔序列
+            gap = gap * 3 + 1;
+        }
+
+        for (; gap > 0; gap = (int)Math.floor(gap / 3)) {
+
+            for (int i = gap; i < len; i++) {
+                temp = arr[i];
+
+                for (int j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+                    temp = arr[j + gap];
+                    arr[j + gap] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
         int[] arr = Helper.createArray(10, 1, 100);
@@ -104,5 +136,11 @@ public class Sort {
 
         insertionSort(arr);
         System.out.println("insertion sort: " + Arrays.toString(arr));
+
+        Helper.mixArrary(arr);
+        System.out.println("mixed array: " + Arrays.toString(arr));
+
+        hillSort(arr);
+        System.out.println("hill sort: " + Arrays.toString(arr));
     }
 }
