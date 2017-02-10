@@ -70,24 +70,14 @@ public class Sort {
     public static int[] insertionSort(int[] arr) {
 
         int len = arr.length;
-        int prevIndex, temp;
+        int temp;
 
         for (int i = 1; i < len; i++) {
-            prevIndex = i - 1;
+            for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
 
-            for (int j = len - i; j > 0; j--) {
-
-                if (prevIndex < 0) break;
-
-                if (arr[j] < arr[prevIndex]) {
-                    temp = arr[j];
-                    arr[j] = arr[prevIndex];
-                    arr[prevIndex] = temp;
-
-                    prevIndex--;
-                } else {
-                    break;
-                }
+                temp = arr[j];
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
             }
         }
 
@@ -96,7 +86,7 @@ public class Sort {
 
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(100, 1, 10);
+        int[] arr = Helper.createArray(10, 1, 100);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
