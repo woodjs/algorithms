@@ -1,3 +1,5 @@
+package bugong;
+
 import java.util.Arrays;
 
 public class StaticSetOfInt {

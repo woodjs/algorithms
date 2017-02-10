@@ -1,3 +1,5 @@
+package bugong;
+
 import java.util.Stack;
 
 import edu.princeton.cs.algs4.StdIn;

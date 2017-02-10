@@ -1,8 +1,16 @@
+package bugong;
+
 import java.util.Arrays;
 
 public class Sort {
 
-    public static int[] bubbleSort(int[] arr) {  // 冒泡排序，先确定最右侧（最大）的数据
+    /**
+     * 冒泡排序，先确定最右侧（最大）的数据
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] bubbleSort(int[] arr) {
 
         int len = arr.length;
         int temp;
@@ -14,7 +22,6 @@ public class Sort {
                 if (arr[j] > arr[j + 1]) {
 
                     temp = arr[j + 1];
-
                     arr[j + 1] = arr[j];
                     arr[j] = temp;
                 }
@@ -24,7 +31,13 @@ public class Sort {
         return arr;
     }
 
-    public static int[] selectionSort(int[] arr) {  // 选择排序，先确定最左侧（最小）的数据
+    /**
+     * 选择排序，先确定最左侧（最小）的数据
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] selectionSort(int[] arr) {
 
         int len = arr.length;
         int minIndex, temp;
@@ -41,7 +54,6 @@ public class Sort {
             }
 
             temp = arr[i];
-
             arr[i] = arr[minIndex];
             arr[minIndex] = temp;
         }
@@ -49,37 +61,34 @@ public class Sort {
         return arr;
     }
 
+    /**
+     * 插入排序
+     *
+     * @param arr
+     * @return
+     */
     public static int[] insertionSort(int[] arr) {
 
         int len = arr.length;
-        int prevIndex, current;
+        int prevIndex, temp;
 
         for (int i = 1; i < len; i++) {
+            prevIndex = i - 1;
 
-        }
+            for (int j = len - i; j > 0; j--) {
 
-        return arr;
-    }
+                if (prevIndex < 0) break;
 
-    public static int[] mixArrary(int[] arr) {  // 随机打乱数组
+                if (arr[j] < arr[prevIndex]) {
+                    temp = arr[j];
+                    arr[j] = arr[prevIndex];
+                    arr[prevIndex] = temp;
 
-        int len = arr.length;
-        int temp;
-
-        for (int i = 0; i < len; i++) {
-
-            int gap = (len - 1) - (i + 1);
-
-            if (gap <= 0) break;  // 防止越界
-
-            int index = (int)Math.round(
-                    Math.random() * ((len - 1) - (i + 1))
-            ) + (i + 1);  // 生成[i + 1, len - 1]间的随机整数
-
-            temp = arr[i];
-
-            arr[i] = arr[index];
-            arr[index] = temp;
+                    prevIndex--;
+                } else {
+                    break;
+                }
+            }
         }
 
         return arr;
@@ -87,20 +96,20 @@ public class Sort {
 
     public static void main(String[] args) {
 
-        int[] arr = {5, 4, 2, 3, 1, 33, 355, 3, 2, 2, 1, 86, 3858, 8, 866, 123, 45};
+        int[] arr = Helper.createArray(100, 1, 10);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
         bubbleSort(arr);
         System.out.println("bubble sort: " + Arrays.toString(arr));
 
-        mixArrary(arr);
+        Helper.mixArrary(arr);
         System.out.println("mixed array: " + Arrays.toString(arr));
 
         selectionSort(arr);
         System.out.println("selection sort: " + Arrays.toString(arr));
 
-        mixArrary(arr);
+        Helper.mixArrary(arr);
         System.out.println("mixed array: " + Arrays.toString(arr));
 
         insertionSort(arr);
