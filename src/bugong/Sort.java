@@ -100,7 +100,7 @@ public class Sort {
             gap = gap * 3 + 1;
         }
 
-        for (; gap > 0; gap = (int)Math.floor(gap / 3)) {
+        for (; gap > 0; gap = (int) Math.floor(gap / 3)) {
 
             for (int i = gap; i < len; i++) {
                 temp = arr[i];
@@ -116,9 +116,66 @@ public class Sort {
         return arr;
     }
 
+    /**
+     * 归并排序
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] mergeSort(int[] arr) {
+
+        int len = arr.length;
+        int temp;
+
+        if (len < 2) {
+            return arr;
+        } else if (len == 2) {
+            if (arr[0] > arr[1]) {
+                temp = arr[1];
+                arr[1] = arr[0];
+                arr[0] = temp;
+            }
+            return arr;
+        }
+
+        int midIndex = len / 2 - 1;
+
+        int[] arr1 = Arrays.copyOfRange(arr, 0, midIndex + 1);
+        int[] arr2 = Arrays.copyOfRange(arr, midIndex + 1, len);
+
+        return merge(mergeSort(arr1), mergeSort(arr2));
+    }
+
+    private static int[] merge(int[] arr1, int[] arr2) {
+        int[] arr = new int[arr1.length + arr2.length];
+        int len = arr.length;
+        int i = 0;
+        int j = 0;
+
+        for (int k = 0; k < len; k++) {
+            if (i < arr1.length && j < arr2.length) {
+                if (arr1[i] < arr2[j]) {
+                    arr[k] = arr1[i];
+                    i++;
+                } else {
+                    arr[k] = arr2[j];
+                    j++;
+                }
+            } else if (i < arr1.length) {
+                arr[k] = arr1[i];
+                i++;
+            } else if (j < arr2.length) {
+                arr[k] = arr2[j];
+                j++;
+            }
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(10, 1, 100);
+        int[] arr = Helper.createArray(4, 1, 100);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
@@ -142,5 +199,10 @@ public class Sort {
 
         hillSort(arr);
         System.out.println("hill sort: " + Arrays.toString(arr));
+
+        Helper.mixArrary(arr);
+        System.out.println("mixed array: " + Arrays.toString(arr));
+
+        System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
     }
 }
