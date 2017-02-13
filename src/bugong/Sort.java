@@ -106,6 +106,7 @@ public class Sort {
                 temp = arr[i];
 
                 for (int j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+
                     temp = arr[j + gap];
                     arr[j + gap] = arr[j];
                     arr[j] = temp;
@@ -130,7 +131,9 @@ public class Sort {
         if (len < 2) {
             return arr;
         } else if (len == 2) {
+
             if (arr[0] > arr[1]) {
+
                 temp = arr[1];
                 arr[1] = arr[0];
                 arr[0] = temp;
@@ -147,24 +150,31 @@ public class Sort {
     }
 
     private static int[] merge(int[] arr1, int[] arr2) {
+
         int[] arr = new int[arr1.length + arr2.length];
         int len = arr.length;
         int i = 0;
         int j = 0;
 
         for (int k = 0; k < len; k++) {
+
             if (i < arr1.length && j < arr2.length) {
+
                 if (arr1[i] < arr2[j]) {
+
                     arr[k] = arr1[i];
                     i++;
                 } else {
+
                     arr[k] = arr2[j];
                     j++;
                 }
             } else if (i < arr1.length) {
+
                 arr[k] = arr1[i];
                 i++;
             } else if (j < arr2.length) {
+
                 arr[k] = arr2[j];
                 j++;
             }
@@ -175,7 +185,7 @@ public class Sort {
 
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(4, 1, 100);
+        int[] arr = Helper.createArray(10, 1, 100);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
