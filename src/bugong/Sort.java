@@ -183,6 +183,29 @@ public class Sort {
         return arr;
     }
 
+    /**
+     * 快速排序
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] quickSort(int[] arr) {
+
+        int len = arr.length;
+        int temp;
+
+        for (int i = 1; i < len; i++) {
+            if (arr[i - 1] > arr[i]) {
+
+                temp = arr[i];
+                arr[i] = arr[i - 1];
+                arr[i - 1] = temp;
+            }
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
         int[] arr = Helper.createArray(10, 1, 100);
