@@ -193,6 +193,7 @@ public class Sort {
 
         int len = arr.length;
         int temp;
+        int partitionIndex;
 
         for (int i = 1; i < len; i++) {
             if (arr[i - 1] > arr[i]) {
@@ -204,6 +205,28 @@ public class Sort {
         }
 
         return arr;
+    }
+
+    private static int partition(int[] arr) {
+
+        int len = arr.length;
+        int pivot = 0;
+        int index = pivot + 1;
+        int temp;
+
+        for (int i = index; i < len; i++) {
+
+            if (arr[i] < arr[pivot]) {
+                temp = arr[index];
+                arr[index] = arr[i];
+                arr[i] = temp;
+
+                index++;
+            }
+        }
+
+
+        return index - 1;
     }
 
     public static void main(String[] args) {
@@ -237,5 +260,9 @@ public class Sort {
         System.out.println("mixed array: " + Arrays.toString(arr));
 
         System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
+
+        Helper.mixArrary(arr);
+        System.out.println("mixed array: " + Arrays.toString(arr));
+        System.out.println("quick sort: " + Arrays.toString(mergeSort(arr)));
     }
 }
