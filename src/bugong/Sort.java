@@ -66,8 +66,9 @@ public class Sort {
 
         int len = arr.length;
 
-        for (int i = 1; i < len; i++) {
-            for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
+        for (int i = 0; i < len - 1; i++) {  // 1，防止arr[i + 1]越界
+
+            for (int j = i + 1; j > 0 && arr[j] < arr[j - 1]; j--) {
 
                 Helper.swap(arr, j - 1, j);
             }
