@@ -189,32 +189,28 @@ public class Sort {
      * @param arr
      * @return
      */
-    public static int[] quickSort(int[] arr) {
+    public static int[] quickSort(int[] arr, int left, int right) {
 
-        int len = arr.length;
-        int temp;
         int partitionIndex;
 
-        for (int i = 1; i < len; i++) {
-            if (arr[i - 1] > arr[i]) {
+        while (left < right) {
 
-                temp = arr[i];
-                arr[i] = arr[i - 1];
-                arr[i - 1] = temp;
-            }
+            partitionIndex = partition(arr, left, right);
+
+            quickSort(arr, left, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, right);
         }
 
         return arr;
     }
 
-    private static int partition(int[] arr) {
+    private static int partition(int[] arr, int left, int right) {
 
-        int len = arr.length;
-        int pivot = 0;
+        int pivot = left;
         int index = pivot + 1;
         int temp;
 
-        for (int i = index; i < len; i++) {
+        for (int i = index; i <= right; i++) {
 
             if (arr[i] < arr[pivot]) {
                 temp = arr[index];
@@ -225,13 +221,16 @@ public class Sort {
             }
         }
 
+        temp = arr[pivot];
+        arr[pivot] = arr[index - 1];
+        arr[index - 1] = temp;
 
         return index - 1;
     }
 
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(10, 1, 100);
+        int[] arr = Helper.createArray(4, 1, 100);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
@@ -263,6 +262,8 @@ public class Sort {
 
         Helper.mixArrary(arr);
         System.out.println("mixed array: " + Arrays.toString(arr));
-        System.out.println("quick sort: " + Arrays.toString(mergeSort(arr)));
+
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println("quick sort: " + Arrays.toString(arr));
     }
 }
