@@ -231,40 +231,51 @@ public class Sort {
 
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(10, 1, 100);
+        long startTime, endTime;
 
-        System.out.println("original array: " + Arrays.toString(arr));
+        int[] arr = Helper.createArray(100000, 1, 100);
 
+//        System.out.println("original array: " + Arrays.toString(arr));
+
+        startTime =  System.currentTimeMillis();
         bubbleSort(arr);
-        System.out.println("bubble sort: " + Arrays.toString(arr));
+        endTime = System.currentTimeMillis();
+//        System.out.println("bubble sort result: " + Arrays.toString(arr));
+        System.out.println("bubble sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArrary(arr);
-        System.out.println("mixed array: " + Arrays.toString(arr));
-
+        startTime =  System.currentTimeMillis();
         selectionSort(arr);
-        System.out.println("selection sort: " + Arrays.toString(arr));
+        endTime = System.currentTimeMillis();
+//        System.out.println("selection sort: " + Arrays.toString(arr));
+        System.out.println("selection sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArrary(arr);
-        System.out.println("mixed array: " + Arrays.toString(arr));
-
+        startTime =  System.currentTimeMillis();
         insertionSort(arr);
-        System.out.println("insertion sort: " + Arrays.toString(arr));
+        endTime = System.currentTimeMillis();
+//        System.out.println("insertion sort: " + Arrays.toString(arr));
+        System.out.println("insertion sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArrary(arr);
-        System.out.println("mixed array: " + Arrays.toString(arr));
-
+        startTime =  System.currentTimeMillis();
         hillSort(arr);
-        System.out.println("hill sort: " + Arrays.toString(arr));
+        endTime = System.currentTimeMillis();
+//        System.out.println("hill sort: " + Arrays.toString(arr));
+        System.out.println("hill sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArrary(arr);
-        System.out.println("mixed array: " + Arrays.toString(arr));
-
-        System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
+        startTime =  System.currentTimeMillis();
+        mergeSort(arr);
+        endTime = System.currentTimeMillis();
+//        System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
+        System.out.println("merge sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArrary(arr);
-        System.out.println("mixed array: " + Arrays.toString(arr));
-
+        startTime =  System.currentTimeMillis();
         quickSort(arr, 0, arr.length - 1);
-        System.out.println("quick sort: " + Arrays.toString(arr));
+        endTime = System.currentTimeMillis();
+//        System.out.println("quick sort: " + Arrays.toString(arr));
+        System.out.println("quick sort spend: " + (endTime - startTime) + "ms");
     }
 }
