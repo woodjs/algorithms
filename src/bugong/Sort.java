@@ -16,11 +16,11 @@ public class Sort {
 
         for (int i = 0; i < len; i++) {
 
-            for (int j = 0; j < len - 1 - i; j++) {  // i，已排序的数据个数，1，防止j + 1越界
+            for (int j = 1; j < len - i; j++) {  // i，已排序的数据个数
 
-                if (arr[j] > arr[j + 1]) {
+                if (arr[j - 1] > arr[j]) {
 
-                    Helper.swap(arr, j, j + 1);
+                    Helper.swap(arr, j - 1, j);
                 }
             }
         }
@@ -39,11 +39,11 @@ public class Sort {
         int len = arr.length;
         int minIndex;
 
-        for (int i = 0; i < len - 1; i++) {  // 1，防止minIndex + 1越界
+        for (int i = 0; i < len - 1; i++) {  // 1，免去最后一次循环
 
             minIndex = i;
 
-            for (int j = minIndex + 1; j < len; j++) {
+            for (int j = i + 1; j < len; j++) {
 
                 if (arr[j] < arr[minIndex]) {
                     minIndex = j;
@@ -214,7 +214,7 @@ public class Sort {
 
         long startTime, endTime;
 
-        int[] arr = Helper.createArray(10, 1, 100);
+        int[] arr = Helper.createArray(10000, 1, 100);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
