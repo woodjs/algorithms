@@ -23,12 +23,12 @@ public class Helper {
     }
 
     /**
-     * 随机打乱一个数组
+     * 随机打乱数组
      *
      * @param arr
      * @return
      */
-    public static int[] mixArrary(int[] arr) {
+    public static int[] mixArray(int[] arr) {
 
         int len = arr.length;
         int temp;
@@ -47,6 +47,24 @@ public class Helper {
             arr[index] = temp;
         }
 
+        return arr;
+    }
+
+    /**
+     * 反转数组
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] reverseArray(int[] arr) {
+
+        int len = arr.length;
+
+        for (int i = 0; i < len / 2; i++) {
+            int temp = arr[i];
+            arr[i] = arr[len - 1 - i];
+            arr[len - 1 - i] = temp;
+        }
         return arr;
     }
 }
