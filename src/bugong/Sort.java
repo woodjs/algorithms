@@ -83,7 +83,7 @@ public class Sort {
      * @param arr
      * @return
      */
-    public static int[] hillSort(int[] arr) {
+    public static int[] shellSort(int[] arr) {
 
         int len = arr.length;
         int gap = 1;
@@ -241,10 +241,10 @@ public class Sort {
 
         Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
-        hillSort(arr);
+        shellSort(arr);
         endTime = System.currentTimeMillis();
-//        System.out.println("hill sort: " + Arrays.toString(arr));
-        System.out.println("hill sort spend: " + (endTime - startTime) + "ms");
+//        System.out.println("shell sort: " + Arrays.toString(arr));
+        System.out.println("shell sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
