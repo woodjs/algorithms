@@ -31,7 +31,6 @@ public class Helper {
     public static int[] mixArray(int[] arr) {
 
         int len = arr.length;
-        int temp;
 
         for (int i = 0; i < len; i++) {
 
@@ -41,10 +40,7 @@ public class Helper {
                     Math.random() * ((len - 1) - (i + 1))
             ) + (i + 1);  // 生成[i + 1, len - 1]间的随机整数
 
-            temp = arr[i];
-
-            arr[i] = arr[index];
-            arr[index] = temp;
+            swap(arr, i, index);
         }
 
         return arr;
@@ -61,10 +57,23 @@ public class Helper {
         int len = arr.length;
 
         for (int i = 0; i < len / 2; i++) {
-            int temp = arr[i];
-            arr[i] = arr[len - 1 - i];
-            arr[len - 1 - i] = temp;
+
+            swap(arr, i, len - 1 - i);
         }
         return arr;
+    }
+
+    /**
+     * 交换数组中的两个元素
+     *
+     * @param arr
+     * @param i
+     * @param j
+     */
+    public static void swap(int[] arr, int i, int j) {
+
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }

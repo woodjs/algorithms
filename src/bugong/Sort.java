@@ -10,10 +10,9 @@ public class Sort {
      * @param arr
      * @return
      */
-    public static  int[] bubbleSort(int[] arr) {
+    public static int[] bubbleSort(int[] arr) {
 
         int len = arr.length;
-        int temp;
 
         for (int i = 0; i < len; i++) {
 
@@ -21,9 +20,7 @@ public class Sort {
 
                 if (arr[j] > arr[j + 1]) {
 
-                    temp = arr[j + 1];
-                    arr[j + 1] = arr[j];
-                    arr[j] = temp;
+                    Helper.swap(arr, j, j + 1);
                 }
             }
         }
@@ -40,7 +37,7 @@ public class Sort {
     public static int[] selectionSort(int[] arr) {
 
         int len = arr.length;
-        int minIndex, temp;
+        int minIndex;
 
         for (int i = 0; i < len - 1; i++) {  // 1，防止minIndex + 1越界
 
@@ -53,9 +50,7 @@ public class Sort {
                 }
             }
 
-            temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
+            Helper.swap(arr, i, minIndex);
         }
 
         return arr;
@@ -70,14 +65,11 @@ public class Sort {
     public static int[] insertionSort(int[] arr) {
 
         int len = arr.length;
-        int temp;
 
         for (int i = 1; i < len; i++) {
             for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
 
-                temp = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = temp;
+                Helper.swap(arr, j - 1, j);
             }
         }
 
@@ -94,7 +86,7 @@ public class Sort {
 
         int len = arr.length;
         int gap = 1;
-        int temp;
+
 
         while (gap < len / 3) {  // 动态定义间隔序列
             gap = gap * 3 + 1;
@@ -103,13 +95,10 @@ public class Sort {
         for (; gap > 0; gap = (int) Math.floor(gap / 3)) {
 
             for (int i = gap; i < len; i++) {
-                temp = arr[i];
 
-                for (int j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+                for (int j = i - gap; j >= 0 && arr[j] > arr[i]; j -= gap) {
 
-                    temp = arr[j + gap];
-                    arr[j + gap] = arr[j];
-                    arr[j] = temp;
+                    Helper.swap(arr, j, j + gap);
                 }
             }
         }
@@ -126,7 +115,6 @@ public class Sort {
     public static int[] mergeSort(int[] arr) {
 
         int len = arr.length;
-        int temp;
 
         if (len < 2) {
             return arr;
@@ -134,9 +122,7 @@ public class Sort {
 
             if (arr[0] > arr[1]) {
 
-                temp = arr[1];
-                arr[1] = arr[0];
-                arr[0] = temp;
+                Helper.swap(arr, 0, 1);
             }
             return arr;
         }
@@ -197,7 +183,7 @@ public class Sort {
 
         partitionIndex = partition(arr, left, right);
 
-        if (left < partitionIndex -1)
+        if (left < partitionIndex - 1)
             quickSort(arr, left, partitionIndex - 1);
         if (partitionIndex + 1 < right)
             quickSort(arr, partitionIndex + 1, right);
@@ -209,22 +195,17 @@ public class Sort {
 
         int pivot = left;
         int index = pivot + 1;
-        int temp;
 
         for (int i = index; i <= right; i++) {
 
             if (arr[i] < arr[pivot]) {
-                temp = arr[index];
-                arr[index] = arr[i];
-                arr[i] = temp;
 
+                Helper.swap(arr, i, index);
                 index++;
             }
         }
 
-        temp = arr[pivot];
-        arr[pivot] = arr[index - 1];
-        arr[index - 1] = temp;
+        Helper.swap(arr, pivot, index - 1);
 
         return index - 1;
     }
@@ -233,46 +214,46 @@ public class Sort {
 
         long startTime, endTime;
 
-        int[] arr = Helper.createArray(100000, 1, 100);
+        int[] arr = Helper.createArray(10, 1, 100);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         bubbleSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("bubble sort result: " + Arrays.toString(arr));
         System.out.println("bubble sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         selectionSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("selection sort: " + Arrays.toString(arr));
         System.out.println("selection sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         insertionSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("insertion sort: " + Arrays.toString(arr));
         System.out.println("insertion sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         hillSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("hill sort: " + Arrays.toString(arr));
         System.out.println("hill sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         mergeSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
         System.out.println("merge sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
-        startTime =  System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         quickSort(arr, 0, arr.length - 1);
         endTime = System.currentTimeMillis();
 //        System.out.println("quick sort: " + Arrays.toString(arr));
