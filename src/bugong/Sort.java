@@ -193,13 +193,14 @@ public class Sort {
 
         int partitionIndex;
 
-        while (left < right) {
+        if (left > right) return arr;
 
-            partitionIndex = partition(arr, left, right);
+        partitionIndex = partition(arr, left, right);
 
+        if (left < partitionIndex -1)
             quickSort(arr, left, partitionIndex - 1);
+        if (partitionIndex + 1 < right)
             quickSort(arr, partitionIndex + 1, right);
-        }
 
         return arr;
     }
@@ -230,7 +231,7 @@ public class Sort {
 
     public static void main(String[] args) {
 
-        int[] arr = Helper.createArray(4, 1, 100);
+        int[] arr = Helper.createArray(10, 1, 100);
 
         System.out.println("original array: " + Arrays.toString(arr));
 
