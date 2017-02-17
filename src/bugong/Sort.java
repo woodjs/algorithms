@@ -177,7 +177,7 @@ public class Sort {
 
         int partitionIndex;
 
-        if (left > right) return arr;
+        if (arr.length == 0) return arr;
 
         partitionIndex = partition(arr, left, right);
 
@@ -192,20 +192,20 @@ public class Sort {
     private static int partition(int[] arr, int left, int right) {
 
         int pivot = left;
-        int index = pivot + 1;
+        int next = left + 1;
 
-        for (int i = index; i <= right; i++) {
+        for (int i = left + 1; i <= right; i++) {
 
             if (arr[i] < arr[pivot]) {
 
-                Helper.swap(arr, i, index);
-                index++;
+                Helper.swap(arr, i, next);
+                next++;
             }
         }
 
-        Helper.swap(arr, pivot, index - 1);
+        Helper.swap(arr, pivot, next - 1);
 
-        return index - 1;
+        return next - 1;
     }
 
     public static void main(String[] args) {
