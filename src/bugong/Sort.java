@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Sort {
 
     /**
-     * 冒泡排序，先确定最右侧（最大）的数据
+     * 冒泡排序，先确定右侧数据
      *
      * @param arr
      * @return
@@ -29,7 +29,7 @@ public class Sort {
     }
 
     /**
-     * 选择排序，先确定最左侧（最小）的数据
+     * 选择排序，先确定左侧数据
      *
      * @param arr
      * @return
@@ -57,7 +57,7 @@ public class Sort {
     }
 
     /**
-     * 插入排序
+     * 插入排序，先确定左侧数据
      *
      * @param arr
      * @return
@@ -94,7 +94,7 @@ public class Sort {
 
         for (; gap > 0; gap = (int) Math.floor(gap / 3)) {
 
-            for (int i = gap - 1; i < len - 1; i++) {
+            for (int i = gap - 1; i < len - 1; i++) {  // 1，防止arr[j]越界
 
                 for (int j = i + 1; j >= gap && arr[j] < arr[j - gap]; j -= gap) {  // gap，防止arr[j - gap]越界
 
@@ -127,39 +127,37 @@ public class Sort {
             return arr;
         }
 
-        int midIndex = len / 2 - 1;
+        int midIndex = len / 2;
 
-        int[] arr1 = Arrays.copyOfRange(arr, 0, midIndex + 1);
-        int[] arr2 = Arrays.copyOfRange(arr, midIndex + 1, len);
+        int[] arr1 = Arrays.copyOfRange(arr, 0, midIndex);
+        int[] arr2 = Arrays.copyOfRange(arr, midIndex, len);
 
         return merge(mergeSort(arr1), mergeSort(arr2));
     }
 
     private static int[] merge(int[] arr1, int[] arr2) {
 
-        int[] arr = new int[arr1.length + arr2.length];
-        int len = arr.length;
+        int len = arr1.length + arr2.length;
+        int[] arr = new int[len];
+
         int i = 0;
         int j = 0;
 
         for (int k = 0; k < len; k++) {
 
-            if (i < arr1.length && j < arr2.length) {
+            if (i >= arr1.length) {
 
-                if (arr1[i] < arr2[j]) {
-
-                    arr[k] = arr1[i];
-                    i++;
-                } else {
-
-                    arr[k] = arr2[j];
-                    j++;
-                }
-            } else if (i < arr1.length) {
+                arr[k] = arr2[j];
+                j++;
+            } else if (j >= arr2.length) {
 
                 arr[k] = arr1[i];
                 i++;
-            } else if (j < arr2.length) {
+            } else if (arr1[i] < arr2[j]) {
+
+                arr[k] = arr1[i];
+                i++;
+            } else {
 
                 arr[k] = arr2[j];
                 j++;
@@ -214,7 +212,7 @@ public class Sort {
 
         long startTime, endTime;
 
-        int[] arr = Helper.createArray(10000, 1, 100);
+        int[] arr = Helper.createArray(10000, 1, 1000);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
