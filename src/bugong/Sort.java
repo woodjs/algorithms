@@ -1,6 +1,7 @@
 package bugong;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Sort {
 
@@ -243,10 +244,10 @@ public class Sort {
      * 桶排序
      *
      * @param arr
-     * @param bucketSize 每个桶的容量
+     * @param bucketRange 每个桶中，最大值和最小值的差值
      * @return
      */
-    public static int[] bucketSort(int[] arr, int bucketSize) {
+    public static int[] bucketSort(int[] arr, int bucketRange) {
 
         int len = arr.length;
         int minValue = arr[0];
@@ -264,26 +265,39 @@ public class Sort {
             }
         }
 
-        int bucketCount = (int)Math.floor((maxValue - minValue) / bucketSize) + 1;  // 桶的数量
-        int[][] buckets = new int[bucketCount][bucketSize];
+        int bucketCount = (int)Math.floor((maxValue - minValue) / bucketRange) + 1;  // 桶的数量
+
+        ArrayList[] buckets = new ArrayList[bucketCount];
 
         for (i = 0; i < buckets.length; i++) {
-            buckets[i] = new int[bucketSize];
+
+            buckets[i] = new ArrayList();
         }
 
         for (i = 0; i < len; i++) {
-            int index = (int)Math.floor((arr[i] - minValue) / bucketSize);
-            buckets[index][buckets[index].length - 1] = arr[i];
+
+            int bucketIndex = (int)Math.floor((arr[i] - minValue) / bucketRange);
+
+            buckets[bucketIndex].add(arr[i]);
         }
 
         int sortedIndex = 0;
 
         for (i = 0; i < buckets.length; i++) {
 
-            insertionSort(buckets[i]);
 
-            for (int j = 0; j < buckets[i].length; j++) {
-                arr[sortedIndex++] = buckets[i][j];
+            int[] bucket = new int[buckets[i].size()];
+
+            for (int j = 0; j < buckets[i].size(); j++) {
+
+                bucket[j] = (int)buckets[i].get(j);
+            }
+
+            insertionSort(bucket);
+
+            for (int j = 0; j < bucket.length; j++) {
+
+                arr[sortedIndex++] = bucket[j];
             }
 
         }
