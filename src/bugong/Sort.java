@@ -16,11 +16,11 @@ public class Sort {
 
         for (int i = 0; i < len; i++) {
 
-            for (int j = 1; j < len - i; j++) {  // i，已排序的数据个数
+            for (int j = 0; j < len - i - 1; j++) {  // i，已排序的数据个数，1，防止j + 1越界
 
-                if (arr[j - 1] > arr[j]) {
+                if (arr[j] > arr[j + 1]) {
 
-                    Helper.swap(arr, j - 1, j);
+                    Helper.swap(arr, j, j + 1);
                 }
             }
         }
@@ -66,9 +66,9 @@ public class Sort {
 
         int len = arr.length;
 
-        for (int i = 0; i < len - 1; i++) {  // 1，防止arr[i + 1]越界
+        for (int i = 0; i < len - 1; i++) {  // 1，防止arr[j]越界
 
-            for (int j = i + 1; j > 0 && arr[j] < arr[j - 1]; j--) {
+            for (int j = i + 1; j >= 1 && arr[j] < arr[j - 1]; j--) {  // 1，防止arr[j - 1]越界
 
                 Helper.swap(arr, j - 1, j);
             }
@@ -88,18 +88,17 @@ public class Sort {
         int len = arr.length;
         int gap = 1;
 
-
         while (gap < len / 3) {  // 动态定义间隔序列
             gap = gap * 3 + 1;
         }
 
         for (; gap > 0; gap = (int) Math.floor(gap / 3)) {
 
-            for (int i = gap; i < len; i++) {
+            for (int i = gap - 1; i < len - 1; i++) {
 
-                for (int j = i - gap; j >= 0 && arr[j] > arr[i]; j -= gap) {
+                for (int j = i + 1; j >= gap && arr[j] < arr[j - gap]; j -= gap) {  // gap，防止arr[j - gap]越界
 
-                    Helper.swap(arr, j, j + gap);
+                    Helper.swap(arr, j - gap, j);
                 }
             }
         }
