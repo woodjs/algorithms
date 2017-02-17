@@ -208,6 +208,89 @@ public class Sort {
         return next - 1;
     }
 
+    /**
+     * 计数排序
+     * 数据必须是有确定范围的非负整数
+     *
+     * @param arr
+     * @param maxValue
+     * @return
+     */
+    public static int[] countingSort(int[] arr, int maxValue) {
+
+        int len = arr.length;
+        int[] bucket = new int[maxValue + 1];
+        int sortedIndex = 0;
+
+        for (int i = 0; i < len; i++) {
+
+            bucket[arr[i]]++;
+        }
+
+        for (int j = 0; j < bucket.length; j++) {
+
+            while (bucket[j] > 0) {
+
+                arr[sortedIndex++] = j;
+                bucket[j]--;
+            }
+        }
+
+        return arr;
+    }
+
+    /**
+     * 桶排序
+     *
+     * @param arr
+     * @param bucketSize 每个桶的容量
+     * @return
+     */
+    public static int[] bucketSort(int[] arr, int bucketSize) {
+
+        int len = arr.length;
+        int minValue = arr[0];
+        int maxValue = arr[0];
+        int i;
+
+        for (i = 0; i < len; i++) {
+
+            if (arr[i] < minValue) {
+
+                minValue = arr[i];
+            } else if (arr[i] > maxValue) {
+
+                maxValue = arr[i];
+            }
+        }
+
+        int bucketCount = (int)Math.floor((maxValue - minValue) / bucketSize) + 1;  // 桶的数量
+        int[][] buckets = new int[bucketCount][bucketSize];
+
+        for (i = 0; i < buckets.length; i++) {
+            buckets[i] = new int[bucketSize];
+        }
+
+        for (i = 0; i < len; i++) {
+            int index = (int)Math.floor((arr[i] - minValue) / bucketSize);
+            buckets[index][buckets[index].length - 1] = arr[i];
+        }
+
+        int sortedIndex = 0;
+
+        for (i = 0; i < buckets.length; i++) {
+
+            insertionSort(buckets[i]);
+
+            for (int j = 0; j < buckets[i].length; j++) {
+                arr[sortedIndex++] = buckets[i][j];
+            }
+
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
 
         long startTime, endTime;
@@ -256,5 +339,19 @@ public class Sort {
         endTime = System.currentTimeMillis();
 //        System.out.println("quick sort: " + Arrays.toString(arr));
         System.out.println("quick sort spend: " + (endTime - startTime) + "ms");
+
+        Helper.mixArray(arr);
+        startTime = System.currentTimeMillis();
+        countingSort(arr, 1000);
+        endTime = System.currentTimeMillis();
+//        System.out.println("counting sort: " + Arrays.toString(arr));
+        System.out.println("counting sort spend: " + (endTime - startTime) + "ms");
+
+        Helper.mixArray(arr);
+        startTime = System.currentTimeMillis();
+        bucketSort(arr, 10);
+        endTime = System.currentTimeMillis();
+//        System.out.println("bucket sort: " + Arrays.toString(bucketSort(arr, 10)));
+        System.out.println("bucket sort spend: " + (endTime - startTime) + "ms");
     }
 }
