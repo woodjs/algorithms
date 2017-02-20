@@ -2,6 +2,7 @@ package bugong;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Sort {
 
@@ -265,7 +266,7 @@ public class Sort {
             }
         }
 
-        int bucketCount = (int)Math.floor((maxValue - minValue) / bucketRange) + 1;  // 桶的数量
+        int bucketCount = (int) Math.floor((maxValue - minValue) / bucketRange) + 1;  // 桶的数量
 
         ArrayList[] buckets = new ArrayList[bucketCount];
 
@@ -276,7 +277,7 @@ public class Sort {
 
         for (i = 0; i < len; i++) {
 
-            int bucketIndex = (int)Math.floor((arr[i] - minValue) / bucketRange);
+            int bucketIndex = (int) Math.floor((arr[i] - minValue) / bucketRange);
 
             buckets[bucketIndex].add(arr[i]);
         }
@@ -285,12 +286,11 @@ public class Sort {
 
         for (i = 0; i < buckets.length; i++) {
 
-
             int[] bucket = new int[buckets[i].size()];
 
             for (int j = 0; j < buckets[i].size(); j++) {
 
-                bucket[j] = (int)buckets[i].get(j);
+                bucket[j] = (int) buckets[i].get(j);
             }
 
             insertionSort(bucket);
@@ -299,7 +299,51 @@ public class Sort {
 
                 arr[sortedIndex++] = bucket[j];
             }
+        }
 
+        return arr;
+    }
+
+    /**
+     * 基数排序
+     *
+     * @param arr
+     * @param maxDigit 最大值数据位数
+     * @return
+     */
+    public static int[] radixSort(int[] arr, int maxDigit) {
+
+        int len = arr.length;
+        int mod = 10;
+        int dev = 1;
+
+        for (int i = 0; i < maxDigit; i++, mod *= 10, dev *= 10) {
+
+            ArrayList[] counter = new ArrayList[10];
+
+            for (int j = 0; j < len; j++) {
+
+                int bucket = arr[j] % mod / dev;  // 123 % 10 / 1 => 3
+
+                if (counter[bucket] == null)
+
+                    counter[bucket] = new ArrayList();
+
+                counter[bucket].add(arr[j]);
+            }
+
+            int pos = 0;
+
+            for (int j = 0; j < counter.length; j++) {
+
+                if (counter[j] != null) {
+
+                    for (int k = 0; k < counter[j].size(); k++) {
+
+                        arr[pos++] = (int) counter[j].get(k);
+                    }
+                }
+            }
         }
 
         return arr;
@@ -309,7 +353,7 @@ public class Sort {
 
         long startTime, endTime;
 
-        int[] arr = Helper.createArray(10000, 1, 1000);
+        int[] arr = Helper.createArray(10000, 1, 100);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
@@ -367,5 +411,12 @@ public class Sort {
         endTime = System.currentTimeMillis();
 //        System.out.println("bucket sort: " + Arrays.toString(bucketSort(arr, 10)));
         System.out.println("bucket sort spend: " + (endTime - startTime) + "ms");
+
+        Helper.mixArray(arr);
+        startTime = System.currentTimeMillis();
+        radixSort(arr, 3);
+        endTime = System.currentTimeMillis();
+//        System.out.println("radix sort: " + Arrays.toString(arr));
+        System.out.println("radix sort spend: " + (endTime - startTime) + "ms");
     }
 }
