@@ -214,14 +214,23 @@ public class Sort {
      * 数据必须是有确定范围的非负整数
      *
      * @param arr
-     * @param maxValue
      * @return
      */
-    public static int[] countingSort(int[] arr, int maxValue) {
+    public static int[] countingSort(int[] arr) {
 
         int len = arr.length;
+
+        if (len == 0) return arr;
+
+        int maxValue = arr[0];
+
+        for (int k = 0; k < len; k++) {
+
+            if (arr[k] > maxValue) maxValue = arr[k];
+        }
+
         int[] bucket = new int[maxValue + 1];
-        int sortedIndex = 0;
+        int pos = 0;
 
         for (int i = 0; i < len; i++) {
 
@@ -232,7 +241,7 @@ public class Sort {
 
             while (bucket[j] > 0) {
 
-                arr[sortedIndex++] = j;
+                arr[pos++] = j;
                 bucket[j]--;
             }
         }
@@ -250,6 +259,9 @@ public class Sort {
     public static int[] bucketSort(int[] arr, int bucketRange) {
 
         int len = arr.length;
+
+        if (len == 0) return arr;
+
         int minValue = arr[0];
         int maxValue = arr[0];
         int i;
@@ -281,22 +293,23 @@ public class Sort {
             buckets[bucketIndex].add(arr[i]);
         }
 
-        int sortedIndex = 0;
+        int pos = 0;
 
         for (i = 0; i < buckets.length; i++) {
 
             int[] bucket = new int[buckets[i].size()];
+            int j;
 
-            for (int j = 0; j < buckets[i].size(); j++) {
+            for (j = 0; j < buckets[i].size(); j++) {
 
                 bucket[j] = (int) buckets[i].get(j);
             }
 
             insertionSort(bucket);
 
-            for (int j = 0; j < bucket.length; j++) {
+            for (j = 0; j < bucket.length; j++) {
 
-                arr[sortedIndex++] = bucket[j];
+                arr[pos++] = bucket[j];
             }
         }
 
@@ -304,36 +317,54 @@ public class Sort {
     }
 
     /**
-     * 基数排序
+     * 基数排序（LSD）
+     * MSD，从高位开始进行排序
+     * LSD，从低位开始进行排序
      *
      * @param arr
-     * @param maxDigit 最大值数据位数
      * @return
      */
-    public static int[] radixSort(int[] arr, int maxDigit) {
+    public static int[] radixSort(int[] arr) {
 
         int len = arr.length;
+
+        if (len == 0) return arr;
+
+        int maxValue = arr[0];
         int mod = 10;
-        int dev = 1;
+        int divide = 1;
 
-        for (int i = 0; i < maxDigit; i++, mod *= 10, dev *= 10) {
+        for (int k = 0; k < len; k++) {
 
-            ArrayList[] counter = new ArrayList[10];
+            if (arr[k] > maxValue) maxValue = arr[k];
+        }
 
-            for (int j = 0; j < len; j++) {
+        int maxDigit = 1;  // 最大值数据位数
 
-                int bucket = arr[j] % mod / dev;  // 123 % 10 / 1 => 3
+        while (maxValue / 10 > 0) {
 
-                if (counter[bucket] == null)
+            maxValue = maxValue / 10;
+            maxDigit++;
+        }
 
-                    counter[bucket] = new ArrayList();
+        for (int i = 0; i < maxDigit; i++, mod *= 10, divide *= 10) {
+
+            int j;
+
+            ArrayList[] counter = new ArrayList[10];  // 0-9
+
+            for (j = 0; j < len; j++) {
+
+                int bucket = arr[j] % mod / divide;  // 1234 % 100 / 10 => 3
+
+                if (counter[bucket] == null) counter[bucket] = new ArrayList();
 
                 counter[bucket].add(arr[j]);
             }
 
             int pos = 0;
 
-            for (int j = 0; j < counter.length; j++) {
+            for (j = 0; j < counter.length; j++) {
 
                 if (counter[j] != null) {
 
@@ -352,7 +383,7 @@ public class Sort {
 
         long startTime, endTime;
 
-        int[] arr = Helper.createArray(10000, 1, 100);
+        int[] arr = Helper.createArray(10000, 1, 10000);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
@@ -399,7 +430,7 @@ public class Sort {
 
         Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
-        countingSort(arr, 1000);
+        countingSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("counting sort: " + Arrays.toString(arr));
         System.out.println("counting sort spend: " + (endTime - startTime) + "ms");
@@ -413,7 +444,7 @@ public class Sort {
 
         Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
-        radixSort(arr, 3);
+        radixSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("radix sort: " + Arrays.toString(arr));
         System.out.println("radix sort spend: " + (endTime - startTime) + "ms");
