@@ -318,8 +318,8 @@ public class Sort {
 
     /**
      * 基数排序（LSD）
-     * MSD，从高位开始进行排序
-     * LSD，从低位开始进行排序
+     * MSD（most significant digital），从高位开始进行排序
+     * LSD（least significant digital），从低位开始进行排序
      *
      * @param arr
      * @return
