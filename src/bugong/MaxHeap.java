@@ -14,6 +14,24 @@ public class MaxHeap {
         this.capacity = capacity;
     }
 
+    public MaxHeap(int[] arr) {  // heapify
+
+        int len = arr.length;
+
+        data = new int[len];
+        this.capacity = len;
+
+        for (int i = 0; i < len; i++) {
+            data[i] = arr[i];
+        }
+
+        count = len;
+
+        for (int j = count / 2 - 1; j >= 0; j--) {  // count / 2 - 1，最后一个非叶子节点，在数组中的索引
+            shiftDown(j);
+        }
+    }
+
     public int size() {
 
         return count;
@@ -106,5 +124,11 @@ public class MaxHeap {
         System.out.println("extract max of maxheap: " + heap.extractMax());
         System.out.println("size of maxheap: " + heap.size());
         System.out.println("current max of maxheap: " + heap.getMax());
+
+        int[] arr= new int[]{1, 32, 43, 5, 511, 4};
+
+        MaxHeap heap2 = new MaxHeap(arr);
+
+        System.out.println("current max of heap2: " + heap2.getMax());
     }
 }
