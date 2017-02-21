@@ -6,11 +6,13 @@ public class IndexMaxHeap {
     private int capacity;
     private int[] data;
     private int[] indexes;
+    private Integer[] reverse;  // 用于优化change和contain
 
     public IndexMaxHeap(int capacity) {
 
         data = new int[capacity];
         indexes = new int[capacity];
+        reverse = new Integer[capacity];
 
         this.capacity = capacity;
     }
@@ -31,6 +33,7 @@ public class IndexMaxHeap {
 
         data[count] = item;
         indexes[count] = index;
+        reverse[count] = count;
 
         count++;
 
@@ -44,6 +47,9 @@ public class IndexMaxHeap {
         int maxValue = data[indexes[0]];
 
         data[indexes[0]] = data[indexes[count - 1]];
+
+        reverse[indexes[0]] = 0;
+        reverse[indexes[count - 1]] = null;
 
         count--;
 
@@ -59,6 +65,10 @@ public class IndexMaxHeap {
         int maxIndex = indexes[0];
 
         indexes[0] = indexes[count - 1];
+
+        reverse[indexes[0]] = 0;
+        reverse[indexes[count - 1]] = null;
+
         count--;
 
         shiftDown(0);
@@ -80,7 +90,18 @@ public class IndexMaxHeap {
         return indexes[0];
     }
 
-    public int getItem(int index) {
+    public boolean contain(int index) {
+
+        if (index >= 0 || index <= capacity) {
+            return reverse[index] != null;
+        }
+
+        return false;
+    }
+
+    public Integer getItem(int index) {
+
+        if (!this.contain(index)) return null;
 
         return data[index];
     }
@@ -89,16 +110,10 @@ public class IndexMaxHeap {
 
         data[index] = item;
 
-        for (int i = 0; i < count; i++) {
+        int pos = reverse[index];
 
-            if (indexes[i] == index) {
-
-                shiftUp(i);
-                shiftDown(i);
-
-                break;
-            }
-        }
+        shiftUp(pos);
+        shiftDown(pos);
     }
 
     private void shiftUp(int index) {
@@ -110,6 +125,9 @@ public class IndexMaxHeap {
             next = (index - 1) / 2;
 
             Helper.swap(indexes, index, next);
+
+            reverse[indexes[index]] = index;
+            reverse[indexes[next]] = next;
 
             index = next;
         }
@@ -128,6 +146,10 @@ public class IndexMaxHeap {
             if (data[indexes[index]] > data[indexes[next]]) break;
 
             Helper.swap(indexes, index, next);
+
+            reverse[indexes[index]] = index;
+            reverse[indexes[next]] = next;
+
             index = next;
         }
     }
@@ -160,6 +182,7 @@ public class IndexMaxHeap {
         System.out.println("current max index of maxheap: " + heap.getMaxIndex());
         System.out.println("value of index 2: " + heap.getItem(2));
         heap.change(2, 8888);
+        System.out.println("maxheap contain index 33: " + heap.contain(33));
         System.out.println("value of index 2: " + heap.getItem(2));
         System.out.println("current max of maxheap: " + heap.getMax());
         System.out.println("current max index of maxheap: " + heap.getMaxIndex());
