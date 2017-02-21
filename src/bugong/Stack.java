@@ -18,12 +18,10 @@ public class Stack<Item> implements Iterable<Item> {
         return count == 0;
     }
 
-
     public int size() {
 
         return count;
     }
-
 
     public void push(Item item) {
 
