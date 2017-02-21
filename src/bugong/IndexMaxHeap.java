@@ -101,7 +101,7 @@ public class IndexMaxHeap {
 
     public Integer getItem(int index) {
 
-        if (!this.contain(index)) return null;
+        if (!contain(index)) return null;
 
         return data[index];
     }
