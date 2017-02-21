@@ -44,7 +44,7 @@ public class MaxHeap {
 
     public void insert(int item) {
 
-        if (count > capacity) return;
+        if (count >= capacity) return;
 
         data[count++] = item;
 
