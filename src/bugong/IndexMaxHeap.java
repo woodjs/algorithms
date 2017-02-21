@@ -6,7 +6,7 @@ public class IndexMaxHeap {
     private int capacity;
     private int[] data;
     private int[] indexes;
-    private Integer[] reverse;  // 用于优化change和contain
+    private Integer[] reverse;  // 跟踪indexes中的元素
 
     public IndexMaxHeap(int capacity) {
 
