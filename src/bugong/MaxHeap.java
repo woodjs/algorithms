@@ -48,6 +48,13 @@ public class MaxHeap {
         return maxValue;
     }
 
+    public Integer getMax() {
+
+        if (count == 0) return null;
+
+        return data[0];
+    }
+
     private void shiftUp(int index) {
 
         int next;  // 父节点，(index - 1) / 2
@@ -85,16 +92,19 @@ public class MaxHeap {
         System.out.println("maxheap is empty: " + heap.isEmpty());
 
         heap.insert(10);
-        heap.insert(20);
-        heap.insert(50);
-        heap.insert(80);
-        heap.insert(40);
+        heap.insert(203);
+        heap.insert(13);
+        heap.insert(850);
+        heap.insert(140);
 
         System.out.println("maxheap is empty: " + heap.isEmpty());
         System.out.println("size of maxheap: " + heap.size());
-        System.out.println("max value of maxheap: " + heap.extractMax());
+        System.out.println("current max of maxheap: " + heap.getMax());
+        System.out.println("extract max of maxheap: " + heap.extractMax());
         System.out.println("size of maxheap: " + heap.size());
-        System.out.println("max value of maxheap: " + heap.extractMax());
+        System.out.println("current max of maxheap: " + heap.getMax());
+        System.out.println("extract max of maxheap: " + heap.extractMax());
         System.out.println("size of maxheap: " + heap.size());
+        System.out.println("current max of maxheap: " + heap.getMax());
     }
 }
