@@ -210,6 +210,50 @@ public class Sort {
     }
 
     /**
+     * 堆排序
+     *
+     * @param arr
+     * @return
+     */
+    public static int[] heapSort(int[] arr) {
+
+        int len = arr.length;
+
+        if (len == 0) return arr;
+
+        for (int i = len / 2 - 1; i >= 0; i--) {  // len / 2 - 1，最后一个非叶子节点的索引
+            shiftDown(arr, len, i);
+        }
+
+        for (int j = len - 1; j >= 0; j--) {
+
+            Helper.swap(arr, 0, j);
+
+            shiftDown(arr, j, 0);
+        }
+
+        return arr;
+    }
+
+    private static void shiftDown(int[] arr, int count, int index) {
+
+        int next;
+
+        while ((next = 2 * index + 1) < count) {  // 左孩子，2 * index + 1
+
+            if (next + 1 < count && arr[next + 1] > arr[next]) {  // 判断右孩子是否大于左孩子
+                next = next + 1;
+            }
+
+            if (arr[index] >= arr[next]) break;
+
+            Helper.swap(arr, index, next);
+
+            index = next;
+        }
+    }
+
+    /**
      * 计数排序
      * 数据必须是有确定范围的非负整数
      *
@@ -427,6 +471,13 @@ public class Sort {
         endTime = System.currentTimeMillis();
 //        System.out.println("quick sort: " + Arrays.toString(arr));
         System.out.println("quick sort spend: " + (endTime - startTime) + "ms");
+
+        Helper.mixArray(arr);
+        startTime = System.currentTimeMillis();
+        heapSort(arr);
+        endTime = System.currentTimeMillis();
+//        System.out.println("heap sort: " + Arrays.toString(arr));
+        System.out.println("heap sort spend: " + (endTime - startTime) + "ms");
 
         Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
