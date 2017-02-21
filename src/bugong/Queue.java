@@ -5,9 +5,7 @@ import java.util.Iterator;
 public class Queue<Item> implements Iterable<Item> {
 
     int count;
-
     Node first;
-
     Node last;
 
     private class Node {

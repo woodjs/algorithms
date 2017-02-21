@@ -5,7 +5,6 @@ import java.util.Iterator;
 public class Bag<Item> implements Iterable<Item> {
 
     private int count;
-
     private Node first;
 
     private class Node {
