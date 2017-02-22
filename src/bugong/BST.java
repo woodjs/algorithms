@@ -182,7 +182,7 @@ public class BST {
 
             Node node = queue.dequeue();
 
-            System.out.println("current node is: " + node.key);
+            System.out.println("level order - current node is: " + node.key);
 
             if (node.left != null) queue.enqueue(node.left);
             if (node.right != null) queue.enqueue(node.right);
@@ -191,5 +191,18 @@ public class BST {
 
     public static void main(String[] args) {
 
+        BST bst = new BST();
+
+        bst.insert(0, 0);
+        bst.insert(4, 4);
+        bst.insert(3, 3);
+        bst.insert(1, 1);
+        bst.insert(2, 2);
+        bst.insert(5, 5);
+
+        bst.preorder();
+        bst.inorder();
+        bst.postorder();
+        bst.levelOrder();
     }
 }
