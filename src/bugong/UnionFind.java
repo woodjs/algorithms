@@ -3,24 +3,40 @@ package bugong;
 public class UnionFind {
 
     private int count;
-    private int[] ids;
+    private int[] parent;
+    private int[] rank;
 
-    public UnionFind(int capacity) {
+    public UnionFind(int count) {
 
-        count = capacity;
+        this.count = count;
 
-        ids = new int[capacity];
+        parent = new int[count];
 
-        for (int i = 0; i < capacity; i++) {
-            ids[i] = i;
+        rank = new int[count];
+
+        for (int i = 0; i < count; i++) {
+
+            parent[i] = i;
+            rank[i] = 1;
         }
     }
 
+    /**
+     * 返回分组号
+     *
+     * @param p
+     * @return
+     */
     public Integer find(int p) {
 
         if (p < 0 || p >= count) return null;
 
-        return ids[p];
+        while (p != parent[p]) {
+
+            p = parent[p];
+        }
+
+        return p;
     }
 
     public boolean isConnected(int p, int q) {
@@ -30,13 +46,22 @@ public class UnionFind {
 
     public void unionElements(int p, int q) {
 
-        int pId = ids[p];
-        int qId = ids[q];
+        int pRoot = find(p);
+        int qRoot = find(q);
 
-        if (pId == qId) return;
+        if (pRoot == qRoot) return;
 
-        for (int i =  0; i < count; i++) {
-            if (ids[i] == pId) ids[i] = qId;
+        if (rank[pRoot] > rank[qRoot]) {
+
+            parent[qRoot] = pRoot;
+        } else if (rank[pRoot] < rank[qRoot]) {
+
+            parent[pRoot] = qRoot;
+        }  else {
+
+            parent[qRoot] = pRoot;
+
+            rank[pRoot]++;
         }
     }
 
@@ -48,7 +73,7 @@ public class UnionFind {
         System.out.println(uf.find(10));
         System.out.println(uf.find(9));
         System.out.println(uf.isConnected(1, 2));
-
+        uf.unionElements(1, 2);
         System.out.println(uf.isConnected(1, 2));
     }
 }
