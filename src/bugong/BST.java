@@ -90,7 +90,9 @@ public class BST {
         }
     }
 
-    public int search(int key) {
+    public Integer search(int key) {
+
+        if (!contain(key)) return null;
 
         return search(root, key);
     }
@@ -146,11 +148,11 @@ public class BST {
 
         if (node != null) {
 
-            preorder(node.left);
+            inorder(node.left);
 
             System.out.println("inorder - current node is: " + node.key);
 
-            preorder(node.right);
+            inorder(node.right);
         }
     }
 
@@ -168,8 +170,8 @@ public class BST {
 
         if (node != null) {
 
-            preorder(node.left);
-            preorder(node.right);
+            postorder(node.left);
+            postorder(node.right);
 
             System.out.println("postorder - current node is: " + node.key);
         }
@@ -224,7 +226,7 @@ public class BST {
 
     private Node maximum(Node node) {
 
-        if (node.right == null) return null;
+        if (node.right == null) return node;
 
         return maximum(node.right);
     }
@@ -270,7 +272,7 @@ public class BST {
             return leftNode;
         }
 
-        node.right = removeMin(node.right);
+        node.right = removeMax(node.right);
 
         return node;
     }
@@ -329,8 +331,12 @@ public class BST {
 
         BST bst = new BST();
 
+        System.out.println("isEmpty: " + bst.isEmpty());
+
         bst.insert(0, 0);
         bst.insert(4, 4);
+        bst.insert(6, 6);
+        bst.insert(7, 7);
         bst.insert(3, 3);
         bst.insert(1, 1);
         bst.insert(2, 2);
@@ -340,5 +346,25 @@ public class BST {
         bst.inorder();
         bst.postorder();
         bst.levelOrder();
+
+        System.out.println("isEmpty: " + bst.isEmpty());
+        System.out.println("minimum: " + bst.minimum());
+        System.out.println("maximum: " + bst.maximum());
+        System.out.println("contain 7: " + bst.contain(7));
+        System.out.println("contain 8: " + bst.contain(8));
+        System.out.println("search 5: " + bst.search(5));
+        System.out.println("size: " + bst.size());
+
+        bst.removeMin();
+        bst.removeMax();
+
+        System.out.println("size: " + bst.size());
+        System.out.println("minimum: " + bst.minimum());
+        System.out.println("maximum: " + bst.maximum());
+
+        System.out.println("search 3: " + bst.search(3));
+        bst.remove(3);
+        System.out.println("remove 3");
+        System.out.println("search 3: " + bst.search(3));
     }
 }
