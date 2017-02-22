@@ -17,6 +17,14 @@ public class BST {
             this.key = key;
             this.value = value;
         }
+
+        public Node(Node node) {
+
+            this.key = node.key;
+            this.value = node.value;
+            this.left = node.left;
+            this.right = node.right;
+        }
     }
 
     public int size() {
@@ -186,6 +194,134 @@ public class BST {
 
             if (node.left != null) queue.enqueue(node.left);
             if (node.right != null) queue.enqueue(node.right);
+        }
+    }
+
+    public Integer minimum() {
+
+        if (root == null) return null;
+
+        Node minNode = minimum(root);
+
+        return minNode.key;
+    }
+
+    private Node minimum(Node node) {
+
+        if (node.left == null) return node;
+
+        return minimum(node.left);
+    }
+
+    public Integer maximum() {
+
+        if (root == null) return null;
+
+        Node maxNode = maximum(root);
+
+        return maxNode.key;
+    }
+
+    private Node maximum(Node node) {
+
+        if (node.right == null) return null;
+
+        return maximum(node.right);
+    }
+
+    public void removeMin() {
+
+        if (root == null) return;
+
+        root = removeMin(root);
+    }
+
+    private Node removeMin(Node node) {
+
+        if (node.left == null) {
+
+            Node rightNode = node.right;
+
+            count--;
+
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+
+        return node;
+    }
+
+    public void removeMax() {
+
+        if (root == null) return;
+
+        root = removeMax(root);
+    }
+
+    private Node removeMax(Node node) {
+
+        if (node.right == null) {
+
+            Node leftNode = node.left;
+
+            count--;
+
+            return leftNode;
+        }
+
+        node.right = removeMin(node.right);
+
+        return node;
+    }
+
+    public void remove(int key) {
+
+        if (root == null) return;
+
+        root = remove(root, key);
+    }
+
+    private Node remove(Node node, int key) {
+
+        if (node == null) return null;
+
+        if (node.key == key) {
+
+            if (node.left == null) {
+
+                Node rightNode = node.right;
+
+                count--;
+
+                return rightNode;
+            }
+
+            if (node.right == null) {
+
+                Node leftNode = node.left;
+
+                count--;
+
+                return leftNode;
+            }
+
+            Node successor = new Node(minimum(node.right));  // successor，继任者
+
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+
+            return successor;
+        } else if (node.key < key) {
+
+            node.right = remove(node.right, key);
+
+            return node;
+        } else {
+
+            node.left = remove(node.left, key);
+
+            return node;
         }
     }
 
