@@ -46,7 +46,7 @@ public class Queue<Item> implements Iterable<Item> {
 
     public Item dequeue() {
 
-        Item item = first.item;
+        Item oldFirst = first.item;
 
         first = first.next;
 
@@ -54,7 +54,7 @@ public class Queue<Item> implements Iterable<Item> {
 
         if (isEmpty()) last = null;
 
-        return item;
+        return oldFirst;
     }
 
     public Iterator<Item> iterator() {
