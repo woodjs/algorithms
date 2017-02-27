@@ -37,13 +37,15 @@ public class Stack<Item> implements Iterable<Item> {
 
     public Item pop() {
 
-        Item item = first.item;
+        if (isEmpty()) return null;
+
+        Item oldFirst = first.item;
 
         first = first.next;
 
         count--;
 
-        return item;
+        return oldFirst;
     }
 
     public Iterator<Item> iterator() {
