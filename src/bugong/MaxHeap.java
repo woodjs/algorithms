@@ -1,7 +1,5 @@
 package bugong;
 
-import java.util.ArrayList;
-
 public class MaxHeap {
 
     private int count = 0;
