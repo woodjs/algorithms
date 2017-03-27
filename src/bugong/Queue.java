@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class Queue<Item> implements Iterable<Item> {
 
     int count;
-    Node first;
+    Node first;  // 队首，顶部，第一个入队的元素
     Node last;
 
     private class Node {

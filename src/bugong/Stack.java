@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class Stack<Item> implements Iterable<Item> {
 
     private int count;
-    private Node first;
+    private Node first;  // 栈顶，顶部，最后一个入栈的元素
 
     private class Node {
 
