@@ -1,19 +1,24 @@
 package bugong;
 
+import java.util.Vector;
 
-public class DenseGraph {
+public class SparseGraph {
 
     private int nodeCount;
     private int edgeCount;
     private boolean isDirected;
-    private boolean[][] graph;
+    private Vector<Integer>[] graph;
 
-    public DenseGraph(int num, boolean isDirected) {
+    public SparseGraph(int num, boolean isDirected) {
 
         nodeCount = num;
         edgeCount = 0;
         this.isDirected = isDirected;
-        graph = new boolean[num][num];
+        graph = new Vector[num];
+
+        for (int i = 0; i < num; i++) {
+            graph[i] = new Vector<Integer>();
+        }
     }
 
     public int getNodeCount() {
@@ -32,10 +37,10 @@ public class DenseGraph {
             return;
         }
 
-        graph[n][m] = true;
+        graph[n].add(m);
 
         if (!isDirected) {
-            graph[m][n] = true;
+            graph[m].add(n);
         }
 
         edgeCount++;
@@ -43,12 +48,19 @@ public class DenseGraph {
 
     public boolean hasEdge(int n, int m) {
 
-        return graph[n][m];
+        for (int i = 0; i < graph[n].size(); i++) {
+
+            if (graph[n].elementAt(i) == m) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {
 
-        DenseGraph g = new DenseGraph(8, false);
+        SparseGraph g = new SparseGraph(8, false);
 
         g.addEdge(0, 1);
         g.addEdge(0, 2);
