@@ -1,5 +1,8 @@
 package bugong;
 
+/**
+ * 二叉搜索树
+ */
 public class BST {
 
     private int count;

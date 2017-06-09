@@ -1,5 +1,8 @@
 package bugong;
 
+/**
+ * 并查集
+ */
 public class UnionFind {
 
     private int count;

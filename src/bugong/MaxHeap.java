@@ -1,5 +1,8 @@
 package bugong;
 
+/**
+ * 最大堆
+ */
 public class MaxHeap {
 
     private int count = 0;

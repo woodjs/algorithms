@@ -2,6 +2,9 @@ package bugong;
 
 import java.util.Iterator;
 
+/**
+ * 背包
+ */
 public class Bag<Item> implements Iterable<Item> {
 
     private int count;

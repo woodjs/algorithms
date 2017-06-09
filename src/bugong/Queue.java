@@ -2,6 +2,9 @@ package bugong;
 
 import java.util.Iterator;
 
+/**
+ * 队列
+ */
 public class Queue<Item> implements Iterable<Item> {
 
     int count;

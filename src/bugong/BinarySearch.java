@@ -1,5 +1,8 @@
 package bugong;
 
+/**
+ * 二分查找
+ */
 public class BinarySearch {
 
     public static int binarySearch(int[] arr, int item) {

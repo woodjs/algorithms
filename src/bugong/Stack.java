@@ -2,6 +2,9 @@ package bugong;
 
 import java.util.Iterator;
 
+/**
+ * 栈
+ */
 public class Stack<Item> implements Iterable<Item> {
 
     private int count;

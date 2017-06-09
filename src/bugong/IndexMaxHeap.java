@@ -1,5 +1,8 @@
 package bugong;
 
+/**
+ * 最大索引堆
+ */
 public class IndexMaxHeap {
 
     private int count = 0;
