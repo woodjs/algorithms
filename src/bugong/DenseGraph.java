@@ -50,18 +50,18 @@ public class DenseGraph {
         return graph[n][m];
     }
 
-    public Iterable<Integer> getAdjacentEdges(int n) {
+    public Iterable<Integer> getAdjacentNodes(int n) {
 
-        Vector<Integer> adjEdges = new Vector<Integer>();
+        Vector<Integer> adjNodes = new Vector<Integer>();
 
         for (int i = 0; i < nodeCount; i++) {
 
             if (graph[n][i]) {
-                adjEdges.add(i);
+                adjNodes.add(i);
             }
         }
 
-        return adjEdges;
+        return adjNodes;
     }
 
     public static void main(String[] args) {
@@ -80,6 +80,6 @@ public class DenseGraph {
         System.out.println("5, 7 has edge: " + g.hasEdge(5, 7));
         System.out.println("node count: " + g.getNodeCount());
         System.out.println("edge count: " + g.getEdgeCount());
-        System.out.println("adjacent edges of 0: " + g.getAdjacentEdges(0));
+        System.out.println("adjacent nodes of 0: " + g.getAdjacentNodes(0));
     }
 }

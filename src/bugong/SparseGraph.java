@@ -61,7 +61,7 @@ public class SparseGraph {
         return false;
     }
 
-    public Iterable<Integer> getAdjacentEdges(int n) {
+    public Iterable<Integer> getAdjacentNodes(int n) {
 
         return graph[n];
     }
@@ -82,6 +82,6 @@ public class SparseGraph {
         System.out.println("5, 7 has edge: " + g.hasEdge(5, 7));
         System.out.println("node count: " + g.getNodeCount());
         System.out.println("edge count: " + g.getEdgeCount());
-        System.out.println("adjacent edges of 1: " + g.getAdjacentEdges(0));
+        System.out.println("adjacent nodes of 1: " + g.getAdjacentNodes(0));
     }
 }

@@ -34,7 +34,7 @@ public class GraphComponent {
     }
 
     private void dfs(int n) {
-        Iterable<Integer> nodes = graph.getAdjacentEdges(n);
+        Iterable<Integer> nodes = graph.getAdjacentNodes(n);
 
         visited[n] = true;
         componentId[n] = componentCount;
