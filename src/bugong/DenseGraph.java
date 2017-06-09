@@ -1,11 +1,15 @@
 package bugong;
 
+import java.util.Vector;
 
+/**
+ * 稠密图（邻接矩阵）
+ */
 public class DenseGraph {
 
     private int nodeCount;
     private int edgeCount;
-    private boolean isDirected;
+    private boolean isDirected;  // 是否为有向图
     private boolean[][] graph;
 
     public DenseGraph(int num, boolean isDirected) {
@@ -46,6 +50,20 @@ public class DenseGraph {
         return graph[n][m];
     }
 
+    public Iterable<Integer> getAdjacentEdges(int n) {
+
+        Vector<Integer> adjEdges = new Vector<Integer>();
+
+        for (int i = 0; i < nodeCount; i++) {
+
+            if (graph[n][i]) {
+                adjEdges.add(i);
+            }
+        }
+
+        return adjEdges;
+    }
+
     public static void main(String[] args) {
 
         DenseGraph g = new DenseGraph(8, false);
@@ -56,11 +74,12 @@ public class DenseGraph {
         g.addEdge(3, 4);
         g.addEdge(4, 7);
 
-        System.out.println("0, 1 has edge:" + g.hasEdge(0, 1));
-        System.out.println("2, 0 has edge:" + g.hasEdge(2, 0));
-        System.out.println("3, 4 has edge:" + g.hasEdge(3, 4));
-        System.out.println("5, 7 has edge:" + g.hasEdge(5, 7));
-        System.out.println("node count:" + g.getNodeCount());
-        System.out.println("edge count:" + g.getEdgeCount());
+        System.out.println("0, 1 has edge: " + g.hasEdge(0, 1));
+        System.out.println("2, 0 has edge: " + g.hasEdge(2, 0));
+        System.out.println("3, 4 has edge: " + g.hasEdge(3, 4));
+        System.out.println("5, 7 has edge: " + g.hasEdge(5, 7));
+        System.out.println("node count: " + g.getNodeCount());
+        System.out.println("edge count: " + g.getEdgeCount());
+        System.out.println("adjacent edges of 0: " + g.getAdjacentEdges(0));
     }
 }
