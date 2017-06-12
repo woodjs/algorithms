@@ -1,9 +1,9 @@
 package bugong;
 
 /**
- * 最大索引堆
+ * 最小索引堆
  */
-public class IndexMaxHeap<Item extends Comparable> {
+public class IndexMinHeap<Item extends Comparable> {
 
     private int count = 0;
     private int capacity;
@@ -11,7 +11,7 @@ public class IndexMaxHeap<Item extends Comparable> {
     private Integer[] indexes;
     private Integer[] reverse;  // 跟踪indexes中的元素
 
-    public IndexMaxHeap(int capacity) {
+    public IndexMinHeap(int capacity) {
 
         data = (Item[])new Comparable[capacity];
         indexes = new Integer[capacity];
@@ -43,11 +43,11 @@ public class IndexMaxHeap<Item extends Comparable> {
         shiftUp(count - 1);
     }
 
-    public Item extractMax() {
+    public Item extractMin() {
 
         if (count == 0) return null;
 
-        Item maxValue = data[indexes[0]];
+        Item minValue = data[indexes[0]];
 
         data[indexes[0]] = data[indexes[count - 1]];
 
@@ -58,14 +58,14 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return maxValue;
+        return minValue;
     }
 
-    public Integer extractMaxIndex() {
+    public Integer extractMinIndex() {
 
         if (count == 0) return null;
 
-        int maxIndex = indexes[0];
+        int minIndex = indexes[0];
 
         indexes[0] = indexes[count - 1];
 
@@ -76,17 +76,17 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return maxIndex;
+        return minIndex;
     }
 
-    public Item getMax() {
+    public Item getMin() {
 
         if (count == 0) return null;
 
         return data[indexes[0]];
     }
 
-    public Integer getMaxIndex() {
+    public Integer getMinIndex() {
 
         if (count == 0) return -1;
 
@@ -123,7 +123,7 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         int next;
 
-        while (index - 1 >= 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) > 0) {
+        while (index - 1 >= 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) < 0) {
 
             next = (index - 1) / 2;
 
@@ -142,11 +142,11 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         while ((next = 2 * index + 1) < count) {
 
-            if (next + 1 < count && data[indexes[next]].compareTo(data[indexes[next + 1]]) < 0) {
+            if (next + 1 < count && data[indexes[next]].compareTo(data[indexes[next + 1]]) > 0) {
                 next = next + 1;
             }
 
-            if (data[indexes[index]].compareTo(data[indexes[next]]) > 0) break;
+            if (data[indexes[index]].compareTo(data[indexes[next]]) < 0) break;
 
             new Helper().swap(indexes, index, next);
 
@@ -159,9 +159,9 @@ public class IndexMaxHeap<Item extends Comparable> {
 
     public static void main(String[] args) {
 
-        IndexMaxHeap heap = new IndexMaxHeap(100);
+        IndexMinHeap heap = new IndexMinHeap(100);
 
-        System.out.println("maxheap is empty: " + heap.isEmpty());
+        System.out.println("minheap is empty: " + heap.isEmpty());
 
         heap.insert(0, 10);
         heap.insert(1, 203);
@@ -172,22 +172,22 @@ public class IndexMaxHeap<Item extends Comparable> {
         heap.insert(6, 133);
         heap.insert(7, 333);
 
-        System.out.println("maxheap is empty: " + heap.isEmpty());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("extract max of maxheap: " + heap.extractMax());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("current max index of maxheap: " + heap.getMaxIndex());
-        System.out.println("extract max index of maxheap: " + heap.extractMaxIndex());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("current max index of maxheap: " + heap.getMaxIndex());
+        System.out.println("minheap is empty: " + heap.isEmpty());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("extract min of minheap: " + heap.extractMin());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("current min index of minheap: " + heap.getMinIndex());
+        System.out.println("extract min index of minheap: " + heap.extractMinIndex());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("current min index of minheap: " + heap.getMinIndex());
         System.out.println("value of index 2: " + heap.getItem(2));
         heap.change(2, 8888);
-        System.out.println("maxheap contain index 33: " + heap.contain(33));
+        System.out.println("minheap contain index 33: " + heap.contain(33));
         System.out.println("value of index 2: " + heap.getItem(2));
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("current max index of maxheap: " + heap.getMaxIndex());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("current min index of minheap: " + heap.getMinIndex());
     }
 }
