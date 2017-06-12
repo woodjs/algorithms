@@ -1,6 +1,6 @@
 package bugong;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 
     private int n, m;  // 边的两个端点
     private int weight;  // 边的权值
