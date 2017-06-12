@@ -8,13 +8,13 @@ public class IndexMaxHeap {
     private int count = 0;
     private int capacity;
     private int[] data;
-    private int[] indexes;
+    private Integer[] indexes;
     private Integer[] reverse;  // 跟踪indexes中的元素
 
     public IndexMaxHeap(int capacity) {
 
         data = new int[capacity];
-        indexes = new int[capacity];
+        indexes = new Integer[capacity];
         reverse = new Integer[capacity];
 
         this.capacity = capacity;
@@ -127,7 +127,7 @@ public class IndexMaxHeap {
 
             next = (index - 1) / 2;
 
-            Helper.swap(indexes, index, next);
+            new Helper().swap(indexes, index, next);
 
             reverse[indexes[index]] = index;
             reverse[indexes[next]] = next;
@@ -148,7 +148,7 @@ public class IndexMaxHeap {
 
             if (data[indexes[index]] > data[indexes[next]]) break;
 
-            Helper.swap(indexes, index, next);
+            new Helper().swap(indexes, index, next);
 
             reverse[indexes[index]] = index;
             reverse[indexes[next]] = next;

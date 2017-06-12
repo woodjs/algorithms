@@ -1,6 +1,6 @@
 package bugong;
 
-public class Helper {
+public class Helper<Item extends Comparable> {
 
     /**
      * 创建数组
@@ -10,7 +10,7 @@ public class Helper {
      * @param max  数组的最大值
      * @return
      */
-    public static int[] createArray(int len, int min, int max) {
+    public int[] createArray(int len, int min, int max) {
 
         int[] arr = new int[len];
         int gap = max - min;
@@ -28,7 +28,7 @@ public class Helper {
      * @param arr
      * @return
      */
-    public static int[] mixArray(int[] arr) {
+    public int[] mixArray(int[] arr) {
 
         int len = arr.length;
 
@@ -52,7 +52,7 @@ public class Helper {
      * @param arr
      * @return
      */
-    public static int[] reverseArray(int[] arr) {
+    public Item[] reverseArray(Item[] arr) {
 
         int len = arr.length;
 
@@ -70,6 +70,13 @@ public class Helper {
      * @param i
      * @param j
      */
+    public void swap(Item[] arr, int i, int j) {
+
+        Item temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
     public static void swap(int[] arr, int i, int j) {
 
         int temp = arr[i];

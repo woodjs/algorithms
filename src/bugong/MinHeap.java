@@ -1,21 +1,21 @@
 package bugong;
 
 /**
- * 最大堆
+ * 最小堆
  */
-public class MaxHeap<Item extends Comparable> {
+public class MinHeap<Item extends Comparable> {
 
     private int count = 0;
     private int capacity;
     private Item[] data;
 
-    public MaxHeap(int capacity) {
+    public MinHeap(int capacity) {
 
         data = (Item[])new Comparable[capacity];
         this.capacity = capacity;
     }
 
-    public MaxHeap(Item[] arr) {  // heapify
+    public MinHeap(Item[] arr) {  // heapify
 
         int len = arr.length;
 
@@ -52,11 +52,11 @@ public class MaxHeap<Item extends Comparable> {
         shiftUp(count - 1);
     }
 
-    public Item extractMax() {
+    public Item extractMin() {
 
         if (count == 0) return null;
 
-        Item maxValue = data[0];
+        Item minValue = data[0];
 
         data[0] = data[count - 1];
 
@@ -64,10 +64,10 @@ public class MaxHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return maxValue;
+        return minValue;
     }
 
-    public Item getMax() {
+    public Item getMin() {
 
         if (count == 0) return null;
 
@@ -78,7 +78,7 @@ public class MaxHeap<Item extends Comparable> {
 
         int next;  // 父节点，(index - 1) / 2
 
-        while ((index - 1 >= 0) && data[index].compareTo(data[next = (index - 1) / 2]) > 0) {
+        while ((index - 1 >= 0) && (data[index].compareTo(data[next = (index - 1) / 2]) < 0)) {
 
             new Helper().swap(data, index, next);
 
@@ -92,11 +92,11 @@ public class MaxHeap<Item extends Comparable> {
 
         while ((next = (2 * index + 1)) < count) {  // 左孩子，2 * index + 1
 
-            if (next + 1 < count && data[next + 1].compareTo(data[next]) > 0) {  // 判断右孩子是否大于左孩子
+            if (next + 1 < count && (data[next + 1].compareTo(data[next]) < 0) ) {  // 判断右孩子是否大于左孩子
                 next = next + 1;
             }
 
-            if (data[index].compareTo(data[next]) >= 0) break;
+            if (data[index].compareTo(data[next]) <= 0 ) break;
 
             new Helper().swap(data, index, next);
 
@@ -106,9 +106,9 @@ public class MaxHeap<Item extends Comparable> {
 
     public static void main(String[] args) {
 
-        MaxHeap heap = new MaxHeap(100);
+        MinHeap heap = new MinHeap(100);
 
-        System.out.println("maxheap is empty: " + heap.isEmpty());
+        System.out.println("minheap is empty: " + heap.isEmpty());
 
         heap.insert(10);
         heap.insert(203);
@@ -116,20 +116,20 @@ public class MaxHeap<Item extends Comparable> {
         heap.insert(850);
         heap.insert(140);
 
-        System.out.println("maxheap is empty: " + heap.isEmpty());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("extract max of maxheap: " + heap.extractMax());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
-        System.out.println("extract max of maxheap: " + heap.extractMax());
-        System.out.println("size of maxheap: " + heap.size());
-        System.out.println("current max of maxheap: " + heap.getMax());
+        System.out.println("minheap is empty: " + heap.isEmpty());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("extract min of minheap: " + heap.extractMin());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
+        System.out.println("extract min of minheap: " + heap.extractMin());
+        System.out.println("size of minheap: " + heap.size());
+        System.out.println("current min of minheap: " + heap.getMin());
 
         Integer[] arr= new Integer[]{1, 32, 43, 5, 511, 4};
 
-        MaxHeap heap2 = new MaxHeap(arr);
+        MinHeap heap2 = new MinHeap(arr);
 
-        System.out.println("current max of heap2: " + heap2.getMax());
+        System.out.println("current min of heap2: " + heap2.getMin());
     }
 }
