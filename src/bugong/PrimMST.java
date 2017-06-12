@@ -8,7 +8,8 @@ import java.util.Vector;
 public class PrimMST {
 
     private WeightDenseGraph graph;
-    private MinHeap<Edge> priorityQueue;
+    private IndexMinHeap<Integer> priorityQueue;
+    private Edge[] edgeTo;
     private boolean[] marked;  // 标记算法运行过程中，节点i是否被访问过
     private Vector<Edge> mst;  // 最小生成树包含的所有边
     private int mstWeight;  // 最小生成树的权值
@@ -16,27 +17,28 @@ public class PrimMST {
     public PrimMST(WeightDenseGraph g) {
 
         graph = g;
-        priorityQueue = new MinHeap<Edge>(graph.getEdgeCount());
+        priorityQueue = new IndexMinHeap<Integer>(graph.getNodeCount());
+        edgeTo = new Edge[graph.getNodeCount()];
         marked = new boolean[graph.getNodeCount()];
         mst = new Vector<Edge>();
+
+        for (int i = 0; i < graph.getNodeCount(); i++) {
+
+            marked[i] = false;
+            edgeTo[i] = null;
+        }
 
         visit(0);
 
         while (!priorityQueue.isEmpty()) {
 
-            Edge e = priorityQueue.extractMin();
+            Integer index = priorityQueue.extractMinIndex();
 
-            if (marked[e.getBeginPoint()] && marked[e.getEndPoint()]) {  // 如果该边的两个断点已经被访问过，则丢弃掉该边
-                continue;
+            if (edgeTo[index] != null) {
+                mst.add(edgeTo[index]);
             }
 
-            mst.add(e);
-
-            if (!marked[e.getBeginPoint()]) {
-                visit(e.getBeginPoint());
-            } else {
-                visit(e.getEndPoint());
-            }
+            visit(index);
         }
 
         mstWeight = mst.elementAt(0).getWeight();
@@ -48,12 +50,28 @@ public class PrimMST {
 
     private void visit(int n) {
 
+        if (marked[n]) {
+            return;
+        }
+
         marked[n] = true;
         Iterable<Edge> edges = graph.getAdjacentEdges(n);
 
         for (Edge e : edges) {
-            if (!marked[e.getOtherPoint(n)]) {
-                priorityQueue.insert(e);
+            int m = e.getOtherPoint(n);
+
+            if (!marked[m]) {
+
+                if (edgeTo[m] == null) {
+
+                    edgeTo[m] = e;
+                    priorityQueue.insert(m, e.getWeight());
+
+                } else if (e.getWeight() < edgeTo[m].getWeight()) {
+
+                    edgeTo[m] = e;
+                    priorityQueue.change(m , e.getWeight());
+                }
             }
         }
     }

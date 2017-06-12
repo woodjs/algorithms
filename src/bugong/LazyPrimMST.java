@@ -3,54 +3,58 @@ package bugong;
 import java.util.Vector;
 
 /**
- * 最小生成树（minimum spanning tree），kruskal算法实现
+ * 最小生成树（minimum spanning tree），lazy prim算法实现
  */
-public class KruskalMST {
+public class LazyPrimMST {
 
     private WeightDenseGraph graph;
     private MinHeap<Edge> priorityQueue;
-    private Vector<Edge> mst;
-    private int mstWeight;
+    private boolean[] marked;  // 标记算法运行过程中，节点i是否被访问过
+    private Vector<Edge> mst;  // 最小生成树包含的所有边
+    private int mstWeight;  // 最小生成树的权值
 
-    public KruskalMST(WeightDenseGraph g) {
+    public LazyPrimMST(WeightDenseGraph g) {
 
         graph = g;
-
-        mst = new Vector<Edge>();
         priorityQueue = new MinHeap<Edge>(graph.getEdgeCount());
+        marked = new boolean[graph.getNodeCount()];
+        mst = new Vector<Edge>();
 
-        for (int i = 0; i < graph.getNodeCount(); i++) {
+        visit(0);
 
-            Iterable<Edge> edges = graph.getAdjacentEdges(i);
-
-            for (Edge e : edges) {
-
-                if (e.getBeginPoint() <= e.getEndPoint()) {
-
-                    priorityQueue.insert(e);
-                }
-            }
-        }
-
-        UnionFind uf = new UnionFind(graph.getNodeCount());
-
-        while (!priorityQueue.isEmpty() && mst.size() < graph.getNodeCount() - 1) {
+        while (!priorityQueue.isEmpty()) {
 
             Edge e = priorityQueue.extractMin();
 
-            if(uf.isConnected(e.getBeginPoint() , e.getEndPoint())) {
+            if (marked[e.getBeginPoint()] && marked[e.getEndPoint()]) {  // 如果该边的两个断点已经被访问过，则丢弃掉该边
                 continue;
             }
 
             mst.add(e);
-            uf.unionElements(e.getBeginPoint(), e.getEndPoint());
 
+            if (!marked[e.getBeginPoint()]) {
+                visit(e.getBeginPoint());
+            } else {
+                visit(e.getEndPoint());
+            }
         }
 
         mstWeight = mst.elementAt(0).getWeight();
 
         for (int i = 1; i < mst.size(); i++) {
             mstWeight = mstWeight + mst.elementAt(i).getWeight();
+        }
+    }
+
+    private void visit(int n) {
+
+        marked[n] = true;
+        Iterable<Edge> edges = graph.getAdjacentEdges(n);
+
+        for (Edge e : edges) {
+            if (!marked[e.getOtherPoint(n)]) {
+                priorityQueue.insert(e);
+            }
         }
     }
 
@@ -64,7 +68,6 @@ public class KruskalMST {
         return mstWeight;
     }
 
-
     public static void main(String[] args) {
 
         WeightDenseGraph g = new WeightDenseGraph(8, false);
@@ -77,7 +80,7 @@ public class KruskalMST {
         g.addEdge(new Edge(3, 4, 1));
         g.addEdge(new Edge(4, 7, 1));
 
-        KruskalMST mst = new KruskalMST(g);
+        LazyPrimMST mst = new LazyPrimMST(g);
 
         System.out.println("mst edges: " + mst.getMstEdges());
         System.out.println("mst weight: " + mst.getMstWeight());
