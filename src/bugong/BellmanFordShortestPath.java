@@ -3,17 +3,17 @@ package bugong;
 import java.util.Vector;
 
 /**
- * 有权图最短路径，dijkstra算法，无负权边
+ * 有权图最短路径，bellman ford算法，无负权环
  */
-public class DijkstraShortestPath {
+public class BellmanFordShortestPath {
 
     private WeightDenseGraph graph;
     private int source;
     private int[] distTo;  // 存储起始点到各点最短路径长度
-    private boolean[] marked;  // 记录节点是否被访问过
     private Edge[] from;  // 记录最短路径中，到达i点的边是哪一条
+    private boolean hasNegativeCycle;  // 图中是否有负权环
 
-    public DijkstraShortestPath(WeightDenseGraph g, int s) {
+    public BellmanFordShortestPath(WeightDenseGraph g, int s) {
 
         graph = g;
         source = s;
@@ -21,47 +21,55 @@ public class DijkstraShortestPath {
         int nodeCount = graph.getNodeCount();
 
         distTo = new int[nodeCount];
-        marked = new boolean[nodeCount];
         from = new Edge[nodeCount];
 
         for (int i = 0; i < nodeCount; i++) {
             distTo[i] = 0;
-            marked[i] = false;
             from[i] = null;
         }
 
-        IndexMaxHeap priorityQueue = new IndexMaxHeap(nodeCount);
-
         distTo[source] = 0;
         from[source] = new Edge(source, source, 0);
-        priorityQueue.insert(source, distTo[source]);
-        marked[source] = true;
 
-        while (!priorityQueue.isEmpty()) {
+        for (int step = 1; step < nodeCount; step++) {
 
-            int n = priorityQueue.extractMaxIndex();
+            for (int i = 0; i < nodeCount; i++) {
 
-            marked[n] = true;
+                Iterable<Edge> edges = graph.getAdjacentEdges(i);
 
-            Iterable<Edge> edges = graph.getAdjacentEdges(n);
+                for (Edge e : edges) {
+
+                    if (from[e.getBeginPoint()] != null && (from[e.getEndPoint()]  == null || distTo[e.getBeginPoint()] + e.getWeight() < distTo[e.getEndPoint()])) {
+
+                        distTo[e.getEndPoint()] = distTo[e.getBeginPoint()] + e.getWeight();
+                        from[e.getEndPoint()] = e;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public boolean detectNegativeCycle() {
+
+        for (int i = 0; i < graph.getNodeCount(); i++) {
+
+            Iterable<Edge> edges = graph.getAdjacentEdges(i);
 
             for (Edge e : edges) {
-                int m = e.getOtherPoint(n);
+                if (from[e.getBeginPoint()] != null && (distTo[e.getBeginPoint()] + e.getWeight() < distTo[e.getEndPoint()])) {
 
-                if (!marked[m]) {
-                    if (from[m] == null || (distTo[n] + e.getWeight() < distTo[m])) {
-                        distTo[m] = distTo[n] + e.getWeight();
-                        from[m] = e;
-
-                        if (priorityQueue.contain(m)) {
-                            priorityQueue.change(m, distTo[m]);
-                        } else {
-                            priorityQueue.insert(m, distTo[m]);
-                        }
-                    }
+                    return true;
                 }
             }
         }
+
+        return false;
+    }
+
+    public boolean hasNegativeCycle() {
+
+        return hasNegativeCycle;
     }
 
     public int getShortestPathWeight(int n) {
@@ -71,10 +79,14 @@ public class DijkstraShortestPath {
 
     public boolean hasPathTo(int n) {
 
-        return marked[n];
+        return from[n] != null;
     }
 
     public Vector<Edge> getShortestPath(int n) {
+
+        if (hasNegativeCycle) {
+            return null;
+        }
 
         if (!hasPathTo(n)) {
             return null;
@@ -112,9 +124,10 @@ public class DijkstraShortestPath {
         g.addEdge(new Edge(2, 3, 1));
         g.addEdge(new Edge(3, 4, 1));
         g.addEdge(new Edge(4, 7, 1));
+        g.addEdge(new Edge(1, 7, 1));
 
-        DijkstraShortestPath path = new DijkstraShortestPath(g, 0);
+        BellmanFordShortestPath path = new BellmanFordShortestPath(g, 0);
 
-        System.out.println("1 -> 4 shortest path is : " + path.getShortestPath(4));
+        System.out.println("1 -> 7 shortest path is : " + path.getShortestPath(7));
     }
 }
