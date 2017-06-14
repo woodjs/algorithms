@@ -16,9 +16,9 @@ public class LazyPrimMST {
     public LazyPrimMST(WeightGraph g) {
 
         graph = g;
-        priorityQueue = new MinHeap<Edge>(graph.getEdgeCount());
+        priorityQueue = new MinHeap(graph.getEdgeCount());
         marked = new boolean[graph.getNodeCount()];
-        mst = new Vector<Edge>();
+        mst = new Vector();
 
         visit(0);
 
@@ -52,6 +52,7 @@ public class LazyPrimMST {
         Iterable<Edge> edges = graph.getAdjacentEdges(n);
 
         for (Edge e : edges) {
+
             if (!marked[e.getOtherPoint(n)]) {
                 priorityQueue.insert(e);
             }

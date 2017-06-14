@@ -17,16 +17,10 @@ public class PrimMST {
     public PrimMST(WeightGraph g) {
 
         graph = g;
-        priorityQueue = new IndexMinHeap<Integer>(graph.getNodeCount());
+        priorityQueue = new IndexMinHeap(graph.getNodeCount());
         edgeTo = new Edge[graph.getNodeCount()];
         marked = new boolean[graph.getNodeCount()];
-        mst = new Vector<Edge>();
-
-        for (int i = 0; i < graph.getNodeCount(); i++) {
-
-            marked[i] = false;
-            edgeTo[i] = null;
-        }
+        mst = new Vector();
 
         visit(0);
 
@@ -58,6 +52,7 @@ public class PrimMST {
         Iterable<Edge> edges = graph.getAdjacentEdges(n);
 
         for (Edge e : edges) {
+
             int m = e.getOtherPoint(n);
 
             if (!marked[m]) {

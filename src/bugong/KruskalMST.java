@@ -16,8 +16,8 @@ public class KruskalMST {
 
         graph = g;
 
-        mst = new Vector<Edge>();
-        priorityQueue = new MinHeap<Edge>(graph.getEdgeCount());
+        mst = new Vector();
+        priorityQueue = new MinHeap(graph.getEdgeCount());
 
         for (int i = 0; i < graph.getNodeCount(); i++) {
 
@@ -43,8 +43,8 @@ public class KruskalMST {
             }
 
             mst.add(e);
-            uf.unionElements(e.getBeginPoint(), e.getEndPoint());
 
+            uf.unionElements(e.getBeginPoint(), e.getEndPoint());
         }
 
         mstWeight = mst.elementAt(0).getWeight();
