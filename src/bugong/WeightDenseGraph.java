@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * 有权稠密图（邻接矩阵）
  */
-public class WeightDenseGraph {
+public class WeightDenseGraph implements WeightGraph {
 
     private int nodeCount;
     private int edgeCount;

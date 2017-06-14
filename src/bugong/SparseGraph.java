@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * 稀疏图（邻接表）
  */
-public class SparseGraph {
+public class SparseGraph implements Graph {
 
     private int nodeCount;
     private int edgeCount;

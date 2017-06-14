@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * 有权稀疏图（邻接表）
  */
-public class WeightSparseGraph {
+public class WeightSparseGraph implements WeightGraph {
 
     private int nodeCount;
     private int edgeCount;

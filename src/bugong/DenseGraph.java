@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * 稠密图（邻接矩阵）
  */
-public class DenseGraph {
+public class DenseGraph implements Graph {
 
     private int nodeCount;
     private int edgeCount;
