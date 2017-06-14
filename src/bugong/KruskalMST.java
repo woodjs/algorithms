@@ -7,12 +7,12 @@ import java.util.Vector;
  */
 public class KruskalMST {
 
-    private WeightDenseGraph graph;
+    private WeightGraph graph;
     private MinHeap<Edge> priorityQueue;
     private Vector<Edge> mst;
     private int mstWeight;
 
-    public KruskalMST(WeightDenseGraph g) {
+    public KruskalMST(WeightGraph g) {
 
         graph = g;
 
@@ -63,7 +63,6 @@ public class KruskalMST {
 
         return mstWeight;
     }
-
 
     public static void main(String[] args) {
 

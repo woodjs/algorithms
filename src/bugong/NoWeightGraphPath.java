@@ -6,13 +6,13 @@ import java.util.Vector;
  */
 public class NoWeightGraphPath {
 
-    private DenseGraph graph;
+    private Graph graph;
     private int source;
     private boolean[] visited;  // 记录dfs过程中，节点是否被访问过
     private int[] from;
     private int[] ord;  // 记录路径中节点的次序，ord[i]表示i节点在路径中的次序
 
-    public NoWeightGraphPath(DenseGraph g, int s) {
+    public NoWeightGraphPath(Graph g, int s) {
 
         graph = g;
         source = s;

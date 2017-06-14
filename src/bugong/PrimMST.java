@@ -7,14 +7,14 @@ import java.util.Vector;
  */
 public class PrimMST {
 
-    private WeightDenseGraph graph;
+    private WeightGraph graph;
     private IndexMinHeap<Integer> priorityQueue;
     private Edge[] edgeTo;
     private boolean[] marked;  // 标记算法运行过程中，节点i是否被访问过
     private Vector<Edge> mst;  // 最小生成树包含的所有边
     private int mstWeight;  // 最小生成树的权值
 
-    public PrimMST(WeightDenseGraph g) {
+    public PrimMST(WeightGraph g) {
 
         graph = g;
         priorityQueue = new IndexMinHeap<Integer>(graph.getNodeCount());

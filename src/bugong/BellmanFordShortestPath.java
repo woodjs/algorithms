@@ -7,13 +7,13 @@ import java.util.Vector;
  */
 public class BellmanFordShortestPath {
 
-    private WeightDenseGraph graph;
+    private WeightGraph graph;
     private int source;
     private int[] distTo;  // 存储起始点到各点最短路径长度
     private Edge[] from;  // 记录最短路径中，到达i点的边是哪一条
     private boolean hasNegativeCycle;  // 图中是否有负权环
 
-    public BellmanFordShortestPath(WeightDenseGraph g, int s) {
+    public BellmanFordShortestPath(WeightGraph g, int s) {
 
         graph = g;
         source = s;

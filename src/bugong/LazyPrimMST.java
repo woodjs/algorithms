@@ -7,13 +7,13 @@ import java.util.Vector;
  */
 public class LazyPrimMST {
 
-    private WeightDenseGraph graph;
+    private WeightGraph graph;
     private MinHeap<Edge> priorityQueue;
     private boolean[] marked;  // 标记算法运行过程中，节点i是否被访问过
     private Vector<Edge> mst;  // 最小生成树包含的所有边
     private int mstWeight;  // 最小生成树的权值
 
-    public LazyPrimMST(WeightDenseGraph g) {
+    public LazyPrimMST(WeightGraph g) {
 
         graph = g;
         priorityQueue = new MinHeap<Edge>(graph.getEdgeCount());

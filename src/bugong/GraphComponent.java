@@ -5,12 +5,12 @@ package bugong;
  */
 public class GraphComponent {
 
-    private DenseGraph graph;
+    private Graph graph;
     private int componentCount;
     private int[] componentId;  // 每个节点对应的连通分量id
     private boolean[] visited;  // 记录dfs过程中，节点是否被访问过
 
-    public GraphComponent(DenseGraph g) {
+    public GraphComponent(Graph g) {
 
         graph = g;
         componentCount = 0;

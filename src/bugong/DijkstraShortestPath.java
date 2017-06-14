@@ -7,13 +7,13 @@ import java.util.Vector;
  */
 public class DijkstraShortestPath {
 
-    private WeightDenseGraph graph;
+    private WeightGraph graph;
     private int source;
     private int[] distTo;  // 存储起始点到各点最短路径长度
     private boolean[] marked;  // 记录节点是否被访问过
     private Edge[] from;  // 记录最短路径中，到达i点的边是哪一条
 
-    public DijkstraShortestPath(WeightDenseGraph g, int s) {
+    public DijkstraShortestPath(WeightGraph g, int s) {
 
         graph = g;
         source = s;
