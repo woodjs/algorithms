@@ -20,7 +20,7 @@ public class SparseGraph implements Graph {
         graph = new Vector[num];
 
         for (int i = 0; i < num; i++) {
-            graph[i] = new Vector<Integer>();
+            graph[i] = new Vector();
         }
     }
 

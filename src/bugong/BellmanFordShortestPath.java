@@ -23,11 +23,6 @@ public class BellmanFordShortestPath {
         distTo = new int[nodeCount];
         from = new Edge[nodeCount];
 
-        for (int i = 0; i < nodeCount; i++) {
-            distTo[i] = 0;
-            from[i] = null;
-        }
-
         distTo[source] = 0;
         from[source] = new Edge(source, source, 0);
 
@@ -92,7 +87,7 @@ public class BellmanFordShortestPath {
             return null;
         }
 
-        Stack<Edge> stack = new Stack<Edge>();
+        Stack<Edge> stack = new Stack();
 
         Edge e = from[n];
 
@@ -104,7 +99,7 @@ public class BellmanFordShortestPath {
         // TODO
         stack.push(e);
 
-        Vector<Edge> result = new Vector<Edge>();
+        Vector<Edge> result = new Vector();
 
         while (!stack.isEmpty()) {
             result.add(stack.pop());
@@ -129,5 +124,6 @@ public class BellmanFordShortestPath {
         BellmanFordShortestPath path = new BellmanFordShortestPath(g, 0);
 
         System.out.println("1 -> 7 shortest path is : " + path.getShortestPath(7));
+        System.out.println("1 -> 7 shortest path weight : " + path.getShortestPathWeight(7));
     }
 }

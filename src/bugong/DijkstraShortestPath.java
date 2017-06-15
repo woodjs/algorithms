@@ -24,12 +24,6 @@ public class DijkstraShortestPath {
         marked = new boolean[nodeCount];
         from = new Edge[nodeCount];
 
-        for (int i = 0; i < nodeCount; i++) {
-            distTo[i] = 0;
-            marked[i] = false;
-            from[i] = null;
-        }
-
         IndexMaxHeap priorityQueue = new IndexMaxHeap(nodeCount);
 
         distTo[source] = 0;
@@ -80,7 +74,7 @@ public class DijkstraShortestPath {
             return null;
         }
 
-        Stack<Edge> stack = new Stack<Edge>();
+        Stack<Edge> stack = new Stack();
 
         Edge e = from[n];
 
@@ -92,7 +86,7 @@ public class DijkstraShortestPath {
         // TODO
         stack.push(e);
 
-        Vector<Edge> result = new Vector<Edge>();
+        Vector<Edge> result = new Vector();
 
         while (!stack.isEmpty()) {
             result.add(stack.pop());
@@ -116,5 +110,6 @@ public class DijkstraShortestPath {
         DijkstraShortestPath path = new DijkstraShortestPath(g, 0);
 
         System.out.println("1 -> 4 shortest path is : " + path.getShortestPath(4));
+        System.out.println("1 -> 4 shortest path weight : " + path.getShortestPathWeight(4));
     }
 }

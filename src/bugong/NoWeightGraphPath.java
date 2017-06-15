@@ -44,7 +44,7 @@ public class NoWeightGraphPath {
             return null;
         }
 
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new Stack();
 
         int next = n;
 
@@ -53,7 +53,7 @@ public class NoWeightGraphPath {
             next = from[next];
         }
 
-        Vector<Integer> result = new Vector<Integer>();
+        Vector<Integer> result = new Vector();
 
         while (!stack.isEmpty()) {
             result.add(stack.pop());
@@ -92,7 +92,7 @@ public class NoWeightGraphPath {
             return null;
         }
 
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stack = new Stack();
 
         int next = n;
 
@@ -101,7 +101,7 @@ public class NoWeightGraphPath {
             next = from[next];
         }
 
-        Vector<Integer> result = new Vector<Integer>();
+        Vector<Integer> result = new Vector();
 
         while (!stack.isEmpty()) {
             result.add(stack.pop());
@@ -115,7 +115,7 @@ public class NoWeightGraphPath {
      */
     private void bfs() {
 
-        Queue<Integer> q = new Queue<Integer>();
+        Queue<Integer> q = new Queue();
 
         q.enqueue(source);
         visited[source] = true;

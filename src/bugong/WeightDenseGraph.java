@@ -56,7 +56,7 @@ public class WeightDenseGraph implements WeightGraph {
 
     public Iterable<Edge> getAdjacentEdges(int n) {
 
-        Vector<Edge> adjNodes = new Vector<Edge>();
+        Vector<Edge> adjNodes = new Vector();
 
         for (int i = 0; i < nodeCount; i++) {
 

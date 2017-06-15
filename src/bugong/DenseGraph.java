@@ -52,7 +52,7 @@ public class DenseGraph implements Graph {
 
     public Iterable<Integer> getAdjacentNodes(int n) {
 
-        Vector<Integer> adjNodes = new Vector<Integer>();
+        Vector<Integer> adjNodes = new Vector();
 
         for (int i = 0; i < nodeCount; i++) {
 

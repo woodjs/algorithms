@@ -20,7 +20,7 @@ public class WeightSparseGraph implements WeightGraph {
         graph = new Vector[num];
 
         for (int i = 0; i < num; i++) {
-            graph[i] = new Vector<Edge>();
+            graph[i] = new Vector();
         }
     }
 
