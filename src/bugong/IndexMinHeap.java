@@ -34,9 +34,9 @@ public class IndexMinHeap<Item extends Comparable> {
 
         if (count >= capacity) return;
 
-        data[count] = item;
+        data[index] = item;
         indexes[count] = index;
-        reverse[count] = count;
+        reverse[index] = count;
 
         count++;
 
