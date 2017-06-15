@@ -58,7 +58,7 @@ public class MinHeap<Item extends Comparable> {
 
         Item minValue = data[0];
 
-        data[0] = data[count - 1];
+        new Helper().swap(data, 0, count - 1);
 
         count--;
 

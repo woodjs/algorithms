@@ -34,7 +34,7 @@ public class BinarySearch {
 
         long startTime, endTime;
 
-        int[] arr = new Helper().createArray(10000, 1, 10000);
+        int[] arr = Helper.createArray(10000, 1, 10000);
 
         startTime = System.currentTimeMillis();
         System.out.println("binary search result: " + binarySearch(arr, 876));

@@ -426,9 +426,8 @@ public class Sort {
     public static void main(String[] args) {
 
         long startTime, endTime;
-        Helper helper = new Helper();
 
-        int[] arr = helper.createArray(10000, 1, 10000);
+        int[] arr = Helper.createArray(10000, 1, 10000);
 
 //        System.out.println("original array: " + Arrays.toString(arr));
 
@@ -438,63 +437,63 @@ public class Sort {
 //        System.out.println("bubble sort result: " + Arrays.toString(arr));
         System.out.println("bubble sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         selectionSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("selection sort: " + Arrays.toString(arr));
         System.out.println("selection sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         insertionSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("insertion sort: " + Arrays.toString(arr));
         System.out.println("insertion sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         shellSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("shell sort: " + Arrays.toString(arr));
         System.out.println("shell sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         mergeSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("merge sort: " + Arrays.toString(mergeSort(arr)));
         System.out.println("merge sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         quickSort(arr, 0, arr.length - 1);
         endTime = System.currentTimeMillis();
 //        System.out.println("quick sort: " + Arrays.toString(arr));
         System.out.println("quick sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         heapSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("heap sort: " + Arrays.toString(arr));
         System.out.println("heap sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         countingSort(arr);
         endTime = System.currentTimeMillis();
 //        System.out.println("counting sort: " + Arrays.toString(arr));
         System.out.println("counting sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         bucketSort(arr, 10);
         endTime = System.currentTimeMillis();
 //        System.out.println("bucket sort: " + Arrays.toString(bucketSort(arr, 10)));
         System.out.println("bucket sort spend: " + (endTime - startTime) + "ms");
 
-        helper.mixArray(arr);
+        Helper.mixArray(arr);
         startTime = System.currentTimeMillis();
         radixSort(arr);
         endTime = System.currentTimeMillis();

@@ -49,7 +49,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
         Item minValue = data[indexes[0]];
 
-        data[indexes[0]] = data[indexes[count - 1]];
+        Helper.swap(indexes, 0, count - 1);
 
         reverse[indexes[0]] = 0;
         reverse[indexes[count - 1]] = null;
@@ -67,7 +67,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
         int minIndex = indexes[0];
 
-        indexes[0] = indexes[count - 1];
+        Helper.swap(indexes, 0, count - 1);
 
         reverse[indexes[0]] = 0;
         reverse[indexes[count - 1]] = null;
@@ -127,7 +127,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
             next = (index - 1) / 2;
 
-            new Helper().swap(indexes, index, next);
+            Helper.swap(indexes, index, next);
 
             reverse[indexes[index]] = index;
             reverse[indexes[next]] = next;
@@ -148,7 +148,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
             if (data[indexes[index]].compareTo(data[indexes[next]]) < 0) break;
 
-            new Helper().swap(indexes, index, next);
+            Helper.swap(indexes, index, next);
 
             reverse[indexes[index]] = index;
             reverse[indexes[next]] = next;

@@ -58,7 +58,7 @@ public class MaxHeap<Item extends Comparable> {
 
         Item maxValue = data[0];
 
-        data[0] = data[count - 1];
+        new Helper().swap(data, 0, count - 1);
 
         count--;
 

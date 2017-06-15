@@ -10,7 +10,7 @@ public class Helper<Item extends Comparable> {
      * @param max  数组的最大值
      * @return
      */
-    public int[] createArray(int len, int min, int max) {
+    public static int[] createArray(int len, int min, int max) {
 
         int[] arr = new int[len];
         int gap = max - min;
@@ -28,7 +28,7 @@ public class Helper<Item extends Comparable> {
      * @param arr
      * @return
      */
-    public int[] mixArray(int[] arr) {
+    public static int[] mixArray(int[] arr) {
 
         int len = arr.length;
 
@@ -80,6 +80,13 @@ public class Helper<Item extends Comparable> {
     public static void swap(int[] arr, int i, int j) {
 
         int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void swap(Integer[] arr, int i, int j) {
+
+        Integer temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
