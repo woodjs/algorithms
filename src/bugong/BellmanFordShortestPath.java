@@ -26,9 +26,9 @@ public class BellmanFordShortestPath {
         distTo[source] = 0;
         from[source] = new Edge(source, source, 0);
 
-        for (int step = 1; step < nodeCount; step++) {
+        for (int step = 1; step < nodeCount; step++) {  // 进行nodeCount-1次循环，每一次循环求出从起点到其余所有点, 最多使用step步可到达的最短距离
 
-            for (int i = 0; i < nodeCount; i++) {
+            for (int i = 0; i < nodeCount; i++) {  // 每次循环中对所有边进行一遍松弛操作
 
                 Iterable<Edge> edges = graph.getAdjacentEdges(i);
 
@@ -40,9 +40,10 @@ public class BellmanFordShortestPath {
                         from[e.getEndPoint()] = e;
                     }
                 }
-
             }
         }
+
+        hasNegativeCycle = detectNegativeCycle();
     }
 
     public boolean detectNegativeCycle() {
@@ -52,6 +53,7 @@ public class BellmanFordShortestPath {
             Iterable<Edge> edges = graph.getAdjacentEdges(i);
 
             for (Edge e : edges) {
+
                 if (from[e.getBeginPoint()] != null && (distTo[e.getBeginPoint()] + e.getWeight() < distTo[e.getEndPoint()])) {
 
                     return true;
@@ -96,8 +98,7 @@ public class BellmanFordShortestPath {
             e = from[e.getBeginPoint()];
         }
 
-        // TODO
-        stack.push(e);
+        stack.push(e);  // 起始点为源点的边
 
         Vector<Edge> result = new Vector();
 
@@ -123,6 +124,7 @@ public class BellmanFordShortestPath {
 
         BellmanFordShortestPath path = new BellmanFordShortestPath(g, 0);
 
+        System.out.println("is current graph has negative cycle : " + path.hasNegativeCycle());
         System.out.println("1 -> 7 shortest path is : " + path.getShortestPath(7));
         System.out.println("1 -> 7 shortest path weight : " + path.getShortestPathWeight(7));
     }

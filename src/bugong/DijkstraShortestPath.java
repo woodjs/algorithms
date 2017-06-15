@@ -24,7 +24,7 @@ public class DijkstraShortestPath {
         marked = new boolean[nodeCount];
         from = new Edge[nodeCount];
 
-        IndexMaxHeap priorityQueue = new IndexMaxHeap(nodeCount);
+        IndexMinHeap priorityQueue = new IndexMinHeap(nodeCount);
 
         distTo[source] = 0;
         from[source] = new Edge(source, source, 0);
@@ -33,7 +33,7 @@ public class DijkstraShortestPath {
 
         while (!priorityQueue.isEmpty()) {
 
-            int n = priorityQueue.extractMaxIndex();
+            int n = priorityQueue.extractMinIndex();
 
             marked[n] = true;
 
@@ -83,8 +83,7 @@ public class DijkstraShortestPath {
             e = from[e.getBeginPoint()];
         }
 
-        // TODO
-        stack.push(e);
+        stack.push(e);  // 起始点为源点的边
 
         Vector<Edge> result = new Vector();
 
