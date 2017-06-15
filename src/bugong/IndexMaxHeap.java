@@ -123,7 +123,7 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         int next;
 
-        while (index - 1 >= 0 && data[indexes[index]] != null && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) > 0) {
+        while (index - 1 >= 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) > 0) {
 
             next = (index - 1) / 2;
 
