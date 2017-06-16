@@ -14,9 +14,7 @@ public class BinarySearch {
 
         while (left <= right) {
 
-//            int mid = (left + right) / 2;  可能出现溢出错误
-
-            int mid = left + (right - left) / 2;
+            int mid = left + (right - left) / 2;  // int mid = (left + right) / 2;  可能出现溢出错误
 
             if (arr[mid] == item) return mid;
 
