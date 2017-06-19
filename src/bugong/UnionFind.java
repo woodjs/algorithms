@@ -5,19 +5,19 @@ package bugong;
  */
 public class UnionFind {
 
-    private int count;
+    private int capacity;
     private int[] parent;
     private int[] rank;
 
-    public UnionFind(int count) {
+    public UnionFind(int capacity) {
 
-        this.count = count;
+        this.capacity = capacity;
 
-        parent = new int[count];
+        parent = new int[capacity];
 
-        rank = new int[count];
+        rank = new int[capacity];
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < capacity; i++) {
 
             parent[i] = i;
             rank[i] = 1;
@@ -26,45 +26,41 @@ public class UnionFind {
 
     /**
      * 返回分组号
-     *
-     * @param p
-     * @return
      */
-    public Integer find(int p) {
+    public Integer find(int n) {
 
-        if (p < 0 || p >= count) return null;
+        if (n < 0 || n >= capacity) return null;
 
-        while (p != parent[p]) {
+        while (n != parent[n]) {
 
-            p = parent[p];
+            n = parent[n];
         }
 
-        return p;
+        return n;
     }
 
-    public boolean isConnected(int p, int q) {
+    public boolean isConnected(int n, int m) {
 
-        return find(p) == find(q);
+        return find(n) == find(m);
     }
 
-    public void unionElements(int p, int q) {
+    public void unionElements(int n, int m) {
 
-        int pRoot = find(p);
-        int qRoot = find(q);
+        int nRoot = find(n);
+        int mRoot = find(m);
 
-        if (pRoot == qRoot) return;
+        if (nRoot == mRoot) return;
 
-        if (rank[pRoot] > rank[qRoot]) {
+        if (rank[nRoot] > rank[mRoot]) {  // 树nRoot比树mRoot高，则设置树mRoot的父节点为nRoot
 
-            parent[qRoot] = pRoot;
-        } else if (rank[pRoot] < rank[qRoot]) {
+            parent[mRoot] = nRoot;
+        } else if (rank[mRoot] > rank[nRoot]) {
 
-            parent[pRoot] = qRoot;
+            parent[nRoot] = mRoot;
         }  else {
 
-            parent[qRoot] = pRoot;
-
-            rank[pRoot]++;
+            parent[mRoot] = nRoot;
+            rank[nRoot]++;
         }
     }
 

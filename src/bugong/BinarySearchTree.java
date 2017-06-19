@@ -3,7 +3,7 @@ package bugong;
 /**
  * 二叉搜索树
  */
-public class BST {
+public class BinarySearchTree {
 
     private int count;
     private Node root;
@@ -332,7 +332,7 @@ public class BST {
 
     public static void main(String[] args) {
 
-        BST bst = new BST();
+        BinarySearchTree bst = new BinarySearchTree();
 
         System.out.println("isEmpty: " + bst.isEmpty());
 
