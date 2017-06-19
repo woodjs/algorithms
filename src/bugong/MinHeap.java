@@ -47,7 +47,9 @@ public class MinHeap<Item extends Comparable> {
 
         if (count >= capacity) return;
 
-        data[count++] = item;
+        data[count] = item;
+
+        count++;
 
         shiftUp(count - 1);
     }
@@ -56,7 +58,7 @@ public class MinHeap<Item extends Comparable> {
 
         if (count == 0) return null;
 
-        Item minValue = data[0];
+        Item minItem = data[0];
 
         new Helper().swap(data, 0, count - 1);
 
@@ -64,7 +66,7 @@ public class MinHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return minValue;
+        return minItem;
     }
 
     public Item getMin() {
@@ -77,10 +79,11 @@ public class MinHeap<Item extends Comparable> {
     private void shiftUp(int index) {
 
         int next;  // 父节点，(index - 1) / 2
+        Helper helper = new Helper();
 
-        while ((index - 1 >= 0) && (data[index].compareTo(data[next = (index - 1) / 2]) < 0)) {
+        while ((index > 0) && (data[index].compareTo(data[next = (index - 1) / 2]) < 0)) {
 
-            new Helper().swap(data, index, next);
+            helper.swap(data, index, next);
 
             index = next;
         }
@@ -89,16 +92,17 @@ public class MinHeap<Item extends Comparable> {
     private void shiftDown(int index) {
 
         int next;
+        Helper helper = new Helper();
 
         while ((next = (2 * index + 1)) < count) {  // 左孩子，2 * index + 1
 
-            if (next + 1 < count && (data[next + 1].compareTo(data[next]) < 0) ) {  // 判断右孩子是否大于左孩子
+            if (next + 1 < count && (data[next + 1].compareTo(data[next]) < 0) ) {  // 判断右孩子是否小于左孩子
                 next = next + 1;
             }
 
             if (data[index].compareTo(data[next]) <= 0 ) break;
 
-            new Helper().swap(data, index, next);
+            helper.swap(data, index, next);
 
             index = next;
         }

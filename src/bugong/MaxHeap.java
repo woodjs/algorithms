@@ -56,7 +56,7 @@ public class MaxHeap<Item extends Comparable> {
 
         if (count == 0) return null;
 
-        Item maxValue = data[0];
+        Item maxItem = data[0];
 
         new Helper().swap(data, 0, count - 1);
 
@@ -64,7 +64,7 @@ public class MaxHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return maxValue;
+        return maxItem;
     }
 
     public Item getMax() {
@@ -77,10 +77,11 @@ public class MaxHeap<Item extends Comparable> {
     private void shiftUp(int index) {
 
         int next;  // 父节点，(index - 1) / 2
+        Helper helper = new Helper();
 
-        while ((index - 1 >= 0) && data[index].compareTo(data[next = (index - 1) / 2]) > 0) {
+        while ((index > 0) && data[index].compareTo(data[next = (index - 1) / 2]) > 0) {
 
-            new Helper().swap(data, index, next);
+            helper.swap(data, index, next);
 
             index = next;
         }
@@ -89,6 +90,7 @@ public class MaxHeap<Item extends Comparable> {
     private void shiftDown(int index) {
 
         int next;
+        Helper helper = new Helper();
 
         while ((next = (2 * index + 1)) < count) {  // 左孩子，2 * index + 1
 
@@ -98,7 +100,7 @@ public class MaxHeap<Item extends Comparable> {
 
             if (data[index].compareTo(data[next]) >= 0) break;
 
-            new Helper().swap(data, index, next);
+            helper.swap(data, index, next);
 
             index = next;
         }
