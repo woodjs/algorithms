@@ -49,15 +49,15 @@ public class Queue<Item> implements Iterable<Item> {
 
     public Item dequeue() {
 
-        Item oldFirst = first.item;
+        Node oldFirst = first;
 
-        first = first.next;
+        first = oldFirst.next;
 
         count--;
 
         if (isEmpty()) last = null;
 
-        return oldFirst;
+        return oldFirst.item;
     }
 
     public Iterator<Item> iterator() {

@@ -42,13 +42,13 @@ public class Stack<Item> implements Iterable<Item> {
 
         if (isEmpty()) return null;
 
-        Item oldFirst = first.item;
+        Node oldFirst = first;
 
-        first = first.next;
+        first = oldFirst.next;
 
         count--;
 
-        return oldFirst;
+        return oldFirst.item;
     }
 
     public Iterator<Item> iterator() {
