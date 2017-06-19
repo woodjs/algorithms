@@ -47,7 +47,9 @@ public class MaxHeap<Item extends Comparable> {
 
         if (count >= capacity) return;
 
-        data[count++] = item;
+        data[count] = item;
+
+        count++;
 
         shiftUp(count - 1);
     }
@@ -79,7 +81,7 @@ public class MaxHeap<Item extends Comparable> {
         int next;  // 父节点，(index - 1) / 2
         Helper helper = new Helper();
 
-        while ((index > 0) && data[index].compareTo(data[next = (index - 1) / 2]) > 0) {
+        while (index > 0 && data[index].compareTo(data[next = (index - 1) / 2]) > 0) {
 
             helper.swap(data, index, next);
 

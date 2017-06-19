@@ -47,7 +47,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
         if (count == 0) return null;
 
-        Item minValue = data[indexes[0]];
+        Item minItem = data[indexes[0]];
 
         Helper.swap(indexes, 0, count - 1);
 
@@ -58,7 +58,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return minValue;
+        return minItem;
     }
 
     public Integer extractMinIndex() {
@@ -95,7 +95,7 @@ public class IndexMinHeap<Item extends Comparable> {
 
     public boolean contain(int index) {
 
-        if (index >= 0 || index <= capacity) {
+        if (index >= 0 && index < capacity) {
             return reverse[index] != null;
         }
 
@@ -111,19 +111,22 @@ public class IndexMinHeap<Item extends Comparable> {
 
     public void change(int index, Item item) {
 
-        data[index] = item;
+        Integer pos = reverse[index];
 
-        int pos = reverse[index];
+        if (pos != null) {
 
-        shiftUp(pos);
-        shiftDown(pos);
+            data[index] = item;
+
+            shiftUp(pos);
+            shiftDown(pos);
+        }
     }
 
     private void shiftUp(int index) {
 
         int next;
 
-        while (index - 1 >= 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) < 0) {
+        while (index > 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) < 0) {
 
             next = (index - 1) / 2;
 

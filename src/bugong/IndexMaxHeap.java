@@ -47,7 +47,7 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         if (count == 0) return null;
 
-        Item maxValue = data[indexes[0]];
+        Item maxItem = data[indexes[0]];
 
         Helper.swap(indexes, 0, count - 1);
 
@@ -58,7 +58,7 @@ public class IndexMaxHeap<Item extends Comparable> {
 
         shiftDown(0);
 
-        return maxValue;
+        return maxItem;
     }
 
     public Integer extractMaxIndex() {
@@ -95,7 +95,7 @@ public class IndexMaxHeap<Item extends Comparable> {
 
     public boolean contain(int index) {
 
-        if (index >= 0 || index <= capacity) {
+        if (index >= 0 && index < capacity) {
             return reverse[index] != null;
         }
 
@@ -111,19 +111,21 @@ public class IndexMaxHeap<Item extends Comparable> {
 
     public void change(int index, Item item) {
 
-        data[index] = item;
+        Integer pos = reverse[index];
 
-        int pos = reverse[index];
+        if (pos != null) {
+            data[index] = item;
 
-        shiftUp(pos);
-        shiftDown(pos);
+            shiftUp(pos);
+            shiftDown(pos);
+        }
     }
 
     private void shiftUp(int index) {
 
         int next;
 
-        while (index - 1 >= 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) > 0) {
+        while (index > 0 && data[indexes[index]].compareTo(data[indexes[(index - 1) / 2]]) > 0) {
 
             next = (index - 1) / 2;
 

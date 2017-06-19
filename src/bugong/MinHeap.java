@@ -81,7 +81,7 @@ public class MinHeap<Item extends Comparable> {
         int next;  // 父节点，(index - 1) / 2
         Helper helper = new Helper();
 
-        while ((index > 0) && (data[index].compareTo(data[next = (index - 1) / 2]) < 0)) {
+        while (index > 0 && data[index].compareTo(data[next = (index - 1) / 2]) < 0) {
 
             helper.swap(data, index, next);
 
