@@ -95,7 +95,7 @@ public class Sort {
 
         for (; gap > 0; gap = (int) Math.floor(gap / 3)) {
 
-            for (int i = gap - 1; i < len - gap; i++) {  // 1，防止arr[j]越界
+            for (int i = gap - 1; i < len - gap; i++) {  // gap，防止arr[j]越界
 
                 for (int j = i + gap; j >= gap && arr[j] < arr[j - gap]; j -= gap) {  // gap，防止arr[j - gap]越界
 
