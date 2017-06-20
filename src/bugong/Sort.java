@@ -182,10 +182,13 @@ public class Sort {
 
         partitionIndex = partition(arr, left, right);
 
-        if (left < partitionIndex - 1)
+        if (left < partitionIndex - 1) {
             quickSort(arr, left, partitionIndex - 1);
-        if (partitionIndex + 1 < right)
+        }
+
+        if (partitionIndex + 1 < right) {
             quickSort(arr, partitionIndex + 1, right);
+        }
 
         return arr;
     }
@@ -195,7 +198,7 @@ public class Sort {
         int pivot = left;
         int next = left + 1;
 
-        for (int i = left + 1; i <= right; i++) {
+        for (int i = next + 1; i <= right; i++) {
 
             if (arr[i] < arr[pivot]) {
 
@@ -375,7 +378,7 @@ public class Sort {
         if (len == 0) return arr;
 
         int maxValue = arr[0];
-        int mod = 10;
+        int mod = 10;  // 取模
         int divide = 1;
 
         for (int k = 0; k < len; k++) {
