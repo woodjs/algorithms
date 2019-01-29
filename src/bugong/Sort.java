@@ -198,6 +198,10 @@ public class Sort {
         int pivot = left;
         int next = left + 1;
 
+        while (next <= right && arr[next] < arr[pivot]) {
+            next++;
+        }
+
         for (int i = next + 1; i <= right; i++) {
 
             if (arr[i] < arr[pivot]) {
