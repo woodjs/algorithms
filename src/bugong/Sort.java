@@ -226,37 +226,27 @@ public class Sort {
 
         int len = arr.length;
 
-        if (len == 0) return arr;
-
-        for (int i = len / 2 - 1; i >= 0; i--) {  // len / 2 - 1，最后一个非叶子节点的索引
-            shiftDown(arr, i, len);
-        }
-
-        for (int j = len - 1; j >= 0; j--) {
-
-            Helper.swap(arr, 0, j);
-
-            shiftDown(arr, 0, j);
+        for (int i = len - 1; i >= 0; i--) {
+            shiftUp(arr, i);
+            Helper.swap(arr, 0, i);
         }
 
         return arr;
     }
 
-    private static void shiftDown(int[] arr, int index, int count) {
-
+    private static void shiftUp(int[] arr, int right) {
+        int index = (right + 1) / 2  - 1;  // 最后一个非叶子节点
         int next;
 
-        while ((next = 2 * index + 1) < count) {  // 左孩子，2 * index + 1
+        while (index >= 0 && (next = 2 * index + 1) <= right) {  // 左孩子
 
-            if (next + 1 < count && arr[next + 1] > arr[next]) {  // 判断右孩子是否大于左孩子
+            if (next + 1 <= right && arr[next + 1] > arr[next]) {
                 next = next + 1;
             }
-
-            if (arr[index] >= arr[next]) break;
-
-            Helper.swap(arr, index, next);
-
-            index = next;
+            if (arr[next] > arr[index]) {
+                Helper.swap(arr, index, next);
+            }
+            index--;
         }
     }
 
@@ -435,7 +425,6 @@ public class Sort {
         long startTime, endTime;
 
         int[] arr = Helper.createArray(10000, 1, 10000);
-
 
         startTime = System.currentTimeMillis();
         bubbleSort(arr);
